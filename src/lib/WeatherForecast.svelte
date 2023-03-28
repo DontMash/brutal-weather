@@ -75,7 +75,7 @@
 >
   <InputHeader on:change={onSearch} on:geolocation={() => getGeolocation()} />
 
-  <div class="h-full overflow-y-scroll">
+  <div class="h-full overflow-x-hidden overflow-y-scroll">
     {#if $stateStore === State.Error}
       <Error reason={$errorStore} />
     {/if}
