@@ -9,9 +9,10 @@
   import { writable } from 'svelte/store';
   import { State } from './app.types';
   import type { Location } from './weather/geocoding.types';
-  import type { Forecast } from './/weather/forecast.types';
+  import type { Forecast } from './weather/forecast.types';
   import { getForecast } from './weather/forecast.service';
   import { getLocations } from './weather/geocoding.service';
+  import ShareIcon from './icons/ShareIcon.svelte';
 
   const stateStore = writable<State>(State.Search);
   const errorStore = writable<string>();
@@ -37,7 +38,8 @@
   let currentLocation: Partial<Location> = { name: 'Your location' };
 
   const onSearch = (event: CustomEvent) => {
-    const request = getLocations(event.detail.value);
+    const search = event.detail.value.trim();
+    const request = getLocations(search);
     locationsStore.update(() => request);
   };
   const onSearchSelect = (location: Location) => {
@@ -64,9 +66,36 @@
 
     forecastStore.update(() => request);
   };
+  const onShare = (event: Event) => {
+    const element = event.currentTarget as HTMLElement;
+    element.dataset.loading = true.toString();
 
-  onMount(() => {
-    getGeolocation();
+    const params = new URLSearchParams({
+      id: currentLocation.id.toString(),
+      name: currentLocation.name,
+    });
+    const url = new URL(window.location.origin);
+    url.search = params.toString();
+
+    navigator.clipboard.writeText(url.href).then(() =>
+      setTimeout(() => {
+        element.dataset.loading = false.toString();
+      }, 1000)
+    );
+  };
+
+  onMount(async () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = +params.get('id');
+    const name = params.get('name');
+    if (id && name) {
+      const location = (await getLocations(name)).find((location) => location.id === id);
+      if (!location) return errorStore.update(() => 'Unknown location request');
+
+      onSearchSelect(location);
+    } else {
+      getGeolocation();
+    }
   });
 </script>
 
@@ -75,7 +104,7 @@
 >
   <InputHeader on:change={onSearch} on:geolocation={() => getGeolocation()} />
 
-  <div class="grow overflow-x-hidden overflow-y-auto">
+  <div class="grow overflow-y-auto overflow-x-hidden">
     {#if $stateStore === State.Error}
       <Error reason={$errorStore} />
     {/if}
@@ -103,7 +132,16 @@
           <Loading />
         </div>
       {:then forecast}
-        <ForecastComponent {forecast} location={currentLocation} />
+        <ForecastComponent {forecast} location={currentLocation}>
+          {#if currentLocation.id}
+            <button
+              class="hover:bold-shadow focus-visible:bold-shadow h-10 w-10 rounded-md bg-neutral-800 fill-slate-100 p-1 transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-amber-400 hover:fill-neutral-800 focus:outline-none focus-visible:-translate-x-0.5 focus-visible:-translate-y-0.5 focus-visible:bg-amber-400 focus-visible:fill-neutral-800 data-[loading=true]:pointer-events-none data-[loading=true]:animate-spin"
+              on:click={onShare}
+            >
+              <ShareIcon />
+            </button>
+          {/if}
+        </ForecastComponent>
       {:catch error}
         <Error reason={error} />
       {/await}

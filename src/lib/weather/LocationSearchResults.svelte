@@ -21,7 +21,9 @@
         on:click={() => onSelect(location)}
       >
         <CircleFlag country={location.country} country_code={location.country_code} />
-        <LocationTitle {location} />
+        <div class="flex flex-col text-left">
+          <LocationTitle {location} />
+        </div>
       </button>
     </li>
   {/each}

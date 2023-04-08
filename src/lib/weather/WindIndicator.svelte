@@ -34,7 +34,7 @@
     <ArrowUpAltIcon />
   </div>
   <small>
-    {winddirection_title} - {windspeed} km/h
+    {winddirection_title} / {windspeed} km/h
   </small>
 </figure>
 

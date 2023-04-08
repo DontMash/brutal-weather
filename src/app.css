@@ -1,19 +1,49 @@
+@import './lib/styles/font.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    @apply bg-slate-100 text-neutral-800;
+    @apply scroll-smooth bg-slate-100 font-rubik text-neutral-800 selection:bg-neutral-900 selection:text-slate-100;
   }
 
-  html {
-    @apply scroll-smooth;
+  img {
+    @apply selection:bg-opacity-50;
   }
 }
 
-@layer components {
+@layer utilities {
   .bold-shadow {
     box-shadow: 0.3rem 0.3rem 0 theme(colors.neutral.800);
+  }
+
+  .cross-shadow {
+    @apply relative before:absolute before:top-2 before:left-2 before:block before:h-full before:w-full before:rounded-[inherit];
+  }
+  .cross-shadow::before {
+    --size: 4px;
+
+    background-image: linear-gradient(
+        45deg,
+        theme(colors.neutral.800) 25%,
+        theme(colors.transparent) 25%,
+        theme(colors.transparent) 75%,
+        theme(colors.neutral.800) 75%,
+        theme(colors.neutral.800)
+      ),
+      linear-gradient(
+        45deg,
+        theme(colors.neutral.800) 25%,
+        theme(colors.transparent) 25%,
+        theme(colors.transparent) 75%,
+        theme(colors.neutral.800) 75%,
+        theme(colors.neutral.800)
+      );
+    background-size: var(--size, 4px) var(--size, 4px), var(--size, 4px) var(--size, 4px),
+      100% 100%;
+    background-position: 0px 0px,
+      calc(var(--size, 4px) * 0.5) calc(var(--size, 4px) * 0.5), 0px 0px;
   }
 }

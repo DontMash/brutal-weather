@@ -1,5 +1,5 @@
 <script lang="ts">
-  import WeatherForecast from './lib/WeatherForecast.svelte';
+  import Weather from './lib/Weather.svelte';
   import Footer from './lib/Footer.svelte';
 </script>
 
@@ -7,7 +7,7 @@
   <section>
     <h1 class="sr-only">Weather Forecast</h1>
 
-    <WeatherForecast />
+    <Weather />
   </section>
 </main>
 <Footer />

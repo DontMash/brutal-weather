@@ -1,4 +1,4 @@
-<footer class="p-4">
+<footer class="p-4" id="footer">
   <span class="block text-center text-xs">
     Created by
     <a
