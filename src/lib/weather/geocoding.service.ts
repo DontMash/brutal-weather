@@ -12,7 +12,7 @@ export const getLocations = (name: string): Promise<Array<Location>> => new Prom
 
         const response = await (get(url.href) as Promise<Response<Location>>);
         if (!response.results || response.results.length < 0) {
-            return reject('No entries found');
+            throw new Error('No entries found');
         }
 
         return resolve(response.results);

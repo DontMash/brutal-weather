@@ -11,7 +11,7 @@
   let winddirection_icon_element: HTMLElement;
 
   const getTitle = (direction: number): WinddirectionTitle => {
-    if (direction >= 337.5 && direction < 22.5) return 'N';
+    if (direction >= 337.5 && direction < 360 || direction >= 0 && direction < 22.5) return 'N';
     if (direction >= 22.5 && direction < 67.5) return 'NE';
     if (direction >= 67.5 && direction < 112.5) return 'E';
     if (direction >= 112.5 && direction < 157.5) return 'SE';

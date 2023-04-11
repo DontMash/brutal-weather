@@ -11,10 +11,10 @@ export const get = (url: string): Promise<unknown> =>
             const response = await fetch(url);
 
             if (!response.ok) {
-                return reject(`${response.status}: ${response.statusText}`);
+                throw new Error(`${response.status}: ${response.statusText}`);
             }
 
-            const result = (await response.json());
+            const result = await response.json();
             return resolve(result);
         } catch (error) {
             return reject(error);

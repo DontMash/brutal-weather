@@ -5,6 +5,8 @@
   import { createEventDispatcher } from 'svelte';
   import CloseIcon from './icons/CloseIcon.svelte';
 
+  export let value: string = '';
+
   const CITY_INPUT_NAME = 'city';
   const dispatch = createEventDispatcher();
 
@@ -40,6 +42,7 @@
         required
         minlength="2"
         bind:this={cityInputNameField}
+        bind:value={value}
       />
       <button
         class="absolute top-1/2 right-0 block w-8 -translate-y-1/2 transition-colors hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"

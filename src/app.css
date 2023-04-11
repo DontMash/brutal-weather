@@ -20,7 +20,7 @@
   }
 
   .cross-shadow {
-    @apply relative before:absolute before:top-2 before:left-2 before:block before:h-full before:w-full before:rounded-[inherit];
+    @apply relative before:absolute before:-z-10 before:top-2 before:left-2 before:block before:h-full before:w-full before:rounded-[inherit];
   }
   .cross-shadow::before {
     --size: 4px;
