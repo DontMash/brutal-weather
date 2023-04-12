@@ -1,11 +1,11 @@
 <script lang="ts">
-  import AsyncButton from './AsyncButton.svelte';
-  import FavoriteFilledIcon from './icons/FavoriteFilledIcon.svelte';
-  import FavoriteIcon from './icons/FavoriteIcon.svelte';
+  import AsyncButton from '../AsyncButton.svelte';
+  import FavoriteFilledIcon from '../icons/FavoriteFilledIcon.svelte';
+  import FavoriteIcon from '../icons/FavoriteIcon.svelte';
 
-  import type { Location } from './weather/geocoding.types';
-  import toastService, { ToastType } from './toast/toast.service';
-  import favoritesService from './favorites.service';
+  import type { Location } from './geocoding.types';
+  import toastService, { ToastType } from '../toast/toast.service';
+  import favoritesService from '../favorites.service';
   import { onMount } from 'svelte';
 
   const TOAST_DURATION: number = 3000;

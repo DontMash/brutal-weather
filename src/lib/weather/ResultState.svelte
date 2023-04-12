@@ -2,11 +2,11 @@
   import LoadingState from './LoadingState.svelte';
   import ErrorComponent from '../page/Error.svelte';
   import ForecastComponent from './Forecast.svelte';
+  import FavoriteButton from './FavoriteButton.svelte';
   import ShareButton from '../ShareButton.svelte';
 
   import type { Forecast } from './forecast.types';
   import type { Location } from './geocoding.types';
-  import FavoriteButton from '../FavoriteButton.svelte';
 
   export let forecastRequest: Promise<Forecast>;
   export let location: Partial<Location>;

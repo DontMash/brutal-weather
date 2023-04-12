@@ -13,7 +13,7 @@ const FAVORITES_STORE_IDENTIFIER: string = 'favorites_store';
 class FavoritesService {
     private db: IDBDatabase;
 
-    create(): Promise<void> {
+    private create(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             if (this.db) return resolve();
 
@@ -43,38 +43,40 @@ class FavoritesService {
     }
 
     add(location: Location): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
-            transaction.onerror = (event) => reject(new Error(`Database transaction error`));
-            transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
+        return new Promise<void>((resolve, reject) =>
+            this.create().then(() => {
+                const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
+                transaction.onerror = (event) => reject(new Error(`Database transaction error`));
+                transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
 
-            const params = new URLSearchParams({
-                'id': location.id.toString(),
-                'name': location.name,
-            });
-            const favorite: Favorite = {
-                id: location.id,
-                location,
-                query: params.toString(),
-            };
-            const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
-            const storeRequest = store.put(favorite);
-            storeRequest.onerror = (event) => reject(new Error('Store request error'));
-            storeRequest.onsuccess = (event) => resolve();
-        });
+                const params = new URLSearchParams({
+                    'id': location.id.toString(),
+                    'name': location.name,
+                });
+                const favorite: Favorite = {
+                    id: location.id,
+                    location,
+                    query: params.toString(),
+                };
+                const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
+                const storeRequest = store.put(favorite);
+                storeRequest.onerror = (event) => reject(new Error('Store request error'));
+                storeRequest.onsuccess = (event) => resolve();
+            }).catch(reject));
     }
 
     remove(id: number): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
-            transaction.onerror = (event) => reject(new Error(`Database transaction error`));
-            transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
+        return new Promise<void>((resolve, reject) =>
+            this.create().then(() => {
+                const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
+                transaction.onerror = (event) => reject(new Error(`Database transaction error`));
+                transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
 
-            const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
-            const storeRequest = store.delete(id);
-            storeRequest.onerror = (event) => reject(new Error('Store request error'));
-            storeRequest.onsuccess = (event) => resolve();
-        });
+                const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
+                const storeRequest = store.delete(id);
+                storeRequest.onerror = (event) => reject(new Error('Store request error'));
+                storeRequest.onsuccess = (event) => resolve();
+            }).catch(reject));
     }
 
     has(id: number): Promise<void> {
@@ -86,39 +88,40 @@ class FavoritesService {
     }
 
     get(id: number): Promise<Favorite> {
-        return new Promise<Favorite>((resolve, reject) => {
-            const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
-            transaction.onerror = (event) => reject(new Error(`Database transaction error`));
-            transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
+        return new Promise<Favorite>((resolve, reject) =>
+            this.create().then(() => {
+                const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
+                transaction.onerror = (event) => reject(new Error(`Database transaction error`));
+                transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
 
-            const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
-            const storeRequest = store.get(id);
-            storeRequest.onerror = (event) => reject(new Error('Store request error'));
-            storeRequest.onsuccess = (event) => {
-                if (storeRequest.result) {
-                    return resolve(storeRequest.result);
-                }
-                else {
-                    return reject(new Error('Entry not available'));
-                }
-            };
-        });
+                const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
+                const storeRequest = store.get(id);
+                storeRequest.onerror = (event) => reject(new Error('Store request error'));
+                storeRequest.onsuccess = (event) => {
+                    if (storeRequest.result) {
+                        return resolve(storeRequest.result);
+                    }
+                    else {
+                        return reject(new Error('Entry not available'));
+                    }
+                };
+            }).catch(reject));
     }
 
     getAll(): Promise<Array<Favorite>> {
-        return new Promise<Array<Favorite>>((resolve, reject) => {
-            const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
-            transaction.onerror = (event) => reject(new Error(`Database transaction error`));
-            transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
+        return new Promise<Array<Favorite>>((resolve, reject) =>
+            this.create().then(() => {
+                const transaction = this.db.transaction(FAVORITES_STORE_IDENTIFIER, 'readwrite');
+                transaction.onerror = (event) => reject(new Error(`Database transaction error`));
+                transaction.onabort = (event) => reject(new Error('Database transaction aborted'));
 
-            const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
-            const storeRequest = store.getAll();
-            storeRequest.onerror = (event) => reject(new Error('Store request error'));
-            storeRequest.onsuccess = (event) => resolve(storeRequest.result);
-        });
+                const store = transaction.objectStore(FAVORITES_STORE_IDENTIFIER);
+                const storeRequest = store.getAll();
+                storeRequest.onerror = (event) => reject(new Error('Store request error'));
+                storeRequest.onsuccess = (event) => resolve(storeRequest.result);
+            }).catch(reject));
     }
 }
 
 const favoritesService = new FavoritesService();
-await favoritesService.create();
 export default favoritesService;

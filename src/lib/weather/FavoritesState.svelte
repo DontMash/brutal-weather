@@ -1,10 +1,10 @@
 <script lang="ts">
   import LoadingState from './LoadingState.svelte';
   import CircleFlag from '../CircleFlag.svelte';
+  import LocationTitle from './LocationTitle.svelte';
 
   import { updateQuery } from '../utils';
   import favoritesService, { type Favorite } from '../favorites.service';
-  import LocationTitle from './LocationTitle.svelte';
 
   const onSelect = (favorite: Favorite) =>
     updateQuery(new URLSearchParams(favorite.query));
