@@ -1,5 +1,6 @@
 <script lang="ts">
   import LoadingState from './LoadingState.svelte';
+  import ErrorComponent from '../page/Error.svelte';
   import CircleFlag from '../CircleFlag.svelte';
   import LocationTitle from './LocationTitle.svelte';
 
@@ -13,21 +14,25 @@
 {#await favoritesService.getAll()}
   <LoadingState />
 {:then favorites}
-  <ul class="divide-y-2 divide-neutral-800 border-neutral-800 border-b-2">
-    {#each favorites as favorite}
-      {@const location = favorite.location}
-      <li>
-        <button
-          class="flex w-full items-center space-x-1 py-1 px-2"
-          aria-label={`Select ${location.name}`}
-          on:click={() => onSelect(favorite)}
-        >
-          <CircleFlag country={location.country} country_code={location.country_code} />
-          <div class="flex flex-col text-left">
-            <LocationTitle {location} />
-          </div>
-        </button>
-      </li>
-    {/each}
-  </ul>
+  {#if favorites.length < 1}
+    <ErrorComponent error={new Error('No favorites found')} />
+  {:else}
+    <ul class="divide-y-2 divide-neutral-800 border-b-2 border-neutral-800">
+      {#each favorites as favorite}
+        {@const location = favorite.location}
+        <li>
+          <button
+            class="flex w-full items-center space-x-1 py-1 px-2"
+            aria-label={`Select ${location.name}`}
+            on:click={() => onSelect(favorite)}
+          >
+            <CircleFlag country={location.country} country_code={location.country_code} />
+            <div class="flex flex-col text-left">
+              <LocationTitle {location} />
+            </div>
+          </button>
+        </li>
+      {/each}
+    </ul>
+  {/if}
 {/await}
