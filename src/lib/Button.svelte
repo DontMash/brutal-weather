@@ -1,11 +1,11 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import type { Color } from './button.types';
 
   export let color: Color = 'primary';
 
   const dispatch = createEventDispatcher();
 
-  type Color = 'primary' | 'secondary';
   const colorVariations: Record<Color, string> = {
     primary: 'hover:bg-sky-400 focus-visible:bg-sky-400',
     secondary: 'hover:bg-amber-400 focus-visible:bg-amber-400',

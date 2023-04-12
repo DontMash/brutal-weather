@@ -1,32 +1,40 @@
 <script lang="ts">
+  import CloseIcon from './icons/CloseIcon.svelte';
   import SearchIcon from './icons/SearchIcon.svelte';
+  import FavoriteIcon from './icons/FavoriteIcon.svelte';
   import LocationIcon from './icons/LocationIcon.svelte';
 
   import { createEventDispatcher } from 'svelte';
-  import CloseIcon from './icons/CloseIcon.svelte';
-
-  export let value: string = '';
+  import { updateQuery } from './utils';
 
   const CITY_INPUT_NAME = 'city';
   const dispatch = createEventDispatcher();
 
+  export let value: string = '';
   let cityInputNameField: HTMLInputElement;
+
+  const updateQuerySearch = (search: string) => {
+    const params = new URLSearchParams();
+    params.set('search', search);
+    updateQuery(params);
+  };
 
   const onSubmit = (event: SubmitEvent) => {
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
-    const city = formData.get(CITY_INPUT_NAME);
+    const city = formData.get(CITY_INPUT_NAME).toString();
 
     cityInputNameField.blur();
 
-    dispatch('change', { value: city.toString() });
+    dispatch('value', { value: city });
+    updateQuerySearch(city);
   };
   const onClear = (event: Event) => {
     cityInputNameField.value = '';
     cityInputNameField.focus();
-  }
+  };
 </script>
 
 <header class="flex h-16 items-center border-b-2 border-neutral-800">
@@ -42,7 +50,7 @@
         required
         minlength="2"
         bind:this={cityInputNameField}
-        bind:value={value}
+        bind:value
       />
       <button
         class="absolute top-1/2 right-0 block w-8 -translate-y-1/2 transition-colors hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"
@@ -52,13 +60,22 @@
         <CloseIcon />
       </button>
     </label>
-    
+
     <button
       class="block h-full w-16 flex-shrink-0 bg-amber-300 fill-neutral-800 p-3 transition-colors hover:bg-amber-400 focus:outline-none focus-visible:bg-amber-400 active:bg-amber-500"
       type="submit"
       aria-label="Search for locations"
     >
       <SearchIcon />
+    </button>
+
+    <button
+      class="!ml-0 block h-full w-16 flex-shrink-0 bg-red-300 fill-neutral-800 p-3 transition-colors hover:bg-red-400 focus:outline-none focus-visible:bg-red-400 active:bg-red-500"
+      type="button"
+      aria-label="Get weather forecast for your location"
+      on:click={() => dispatch('favorite')}
+    >
+      <FavoriteIcon />
     </button>
 
     <button

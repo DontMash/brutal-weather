@@ -7,7 +7,7 @@ export const get = (url: string): Promise<unknown> =>
         try {
             // just for show
             await timeout(500);
-            
+
             const response = await fetch(url);
 
             if (!response.ok) {
@@ -20,3 +20,13 @@ export const get = (url: string): Promise<unknown> =>
             return reject(error);
         }
     });
+
+export const updateQuery = (params: URLSearchParams, reload: boolean = true) => {
+    const paramString = params.toString();
+    if (reload) {
+        window.location.search = paramString
+    } else {
+        const query = `${window.location.pathname}${paramString ? '?' : ''}${paramString}${window.location.hash}`;
+        history.pushState(undefined, '', query);
+    }
+};

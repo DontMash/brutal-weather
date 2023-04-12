@@ -19,7 +19,7 @@
     <figure
       transition:fly={{ y: -100, duration: TOAST_TRANSITION_DURATION }}
     >
-      <ToastComponent>
+      <ToastComponent type={toast.type}>
         {toast.message}
       </ToastComponent>
     </figure>

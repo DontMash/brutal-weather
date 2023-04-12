@@ -12,13 +12,14 @@
 
   const getTitle = (direction: number): WinddirectionTitle => {
     if (direction >= 337.5 && direction < 360 || direction >= 0 && direction < 22.5) return 'N';
-    if (direction >= 22.5 && direction < 67.5) return 'NE';
-    if (direction >= 67.5 && direction < 112.5) return 'E';
-    if (direction >= 112.5 && direction < 157.5) return 'SE';
-    if (direction >= 157.5 && direction < 202.5) return 'S';
-    if (direction >= 202.5 && direction < 247.5) return 'SW';
-    if (direction >= 247.5 && direction < 292.5) return 'W';
-    if (direction >= 292.5 && direction < 337.5) return 'NW';
+    else if (direction >= 22.5 && direction < 67.5) return 'NE';
+    else if (direction >= 67.5 && direction < 112.5) return 'E';
+    else if (direction >= 112.5 && direction < 157.5) return 'SE';
+    else if (direction >= 157.5 && direction < 202.5) return 'S';
+    else if (direction >= 202.5 && direction < 247.5) return 'SW';
+    else if (direction >= 247.5 && direction < 292.5) return 'W';
+    else if (direction >= 292.5 && direction < 337.5) return 'NW';
+    else throw new Error('Unknown wind direction title');
   };
 
   onMount(() => {
