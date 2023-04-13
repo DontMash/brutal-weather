@@ -1,5 +1,4 @@
 <script lang="ts">
-  import LoadingState from './LoadingState.svelte';
   import ErrorComponent from '../page/Error.svelte';
   import LocationButton from './LocationButton.svelte';
 
@@ -17,16 +16,15 @@
   };
 
   const updateQueryLocation = (id: number, name: string) => {
-    const params = new URLSearchParams();
-    params.set('id', id.toString());
-    params.set('name', name);
+    const params = new URLSearchParams({
+      id: id.toString(),
+      name: name,
+    });
     updateQuery(params);
   };
 </script>
 
-{#await locationsRequest}
-  <LoadingState />
-{:then locations}
+{#await locationsRequest then locations}
   {#if locations}
     <ul class="divide-y-2 divide-neutral-800 border-b-2 border-neutral-800">
       {#each locations as location}

@@ -66,7 +66,6 @@
 </script>
 
 <AsyncButton
-  color={isFavorite ? 'secondary' : 'primary'}
   loading={isLoading}
   bind:this={button}
   on:click={onFavorite}

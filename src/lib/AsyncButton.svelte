@@ -14,7 +14,7 @@
 </script>
 
 <div
-  class="data-[loading=true]:pointer-events-none data-[loading=true]:animate-spin-fast"
+  class="flex data-[loading=true]:pointer-events-none data-[loading=true]:animate-spin-fast"
   data-loading={loading}
 >
   <Button {color} on:click={() => dispatch('click')}>

@@ -7,8 +7,8 @@
   const dispatch = createEventDispatcher();
 
   const colorVariations: Record<Color, string> = {
-    primary: 'hover:bg-sky-400 focus-visible:bg-sky-400',
-    secondary: 'hover:bg-amber-400 focus-visible:bg-amber-400',
+    primary: 'hover:bg-amber-400 focus-visible:bg-amber-400',
+    secondary: 'hover:bg-sky-400 focus-visible:bg-sky-400',
   };
 </script>
 

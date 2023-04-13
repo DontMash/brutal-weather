@@ -34,7 +34,7 @@
   <div class="direction-rotate h-16 w-16" bind:this={winddirection_icon_element}>
     <ArrowUpAltIcon />
   </div>
-  <small>
+  <small class="text-sm leading-none">
     {winddirection_title} / {windspeed} km/h
   </small>
 </figure>

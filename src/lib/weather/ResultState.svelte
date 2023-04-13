@@ -1,5 +1,4 @@
 <script lang="ts">
-  import LoadingState from './LoadingState.svelte';
   import ErrorComponent from '../page/Error.svelte';
   import ForecastComponent from './Forecast.svelte';
   import FavoriteButton from './FavoriteButton.svelte';
@@ -14,9 +13,7 @@
   $: validLocation = location as Location;
 </script>
 
-{#await forecastRequest}
-  <LoadingState />
-{:then forecast}
+{#await forecastRequest then forecast}
   <ForecastComponent {forecast} {location}>
     <ul class="flex space-x-2">
       {#if location.id}

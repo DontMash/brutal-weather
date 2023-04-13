@@ -24,9 +24,18 @@ export const get = (url: string): Promise<unknown> =>
 export const updateQuery = (params: URLSearchParams, reload: boolean = true) => {
     const paramString = params.toString();
     if (reload) {
-        window.location.search = paramString
+        window.location.search = paramString;
     } else {
         const query = `${window.location.pathname}${paramString ? '?' : ''}${paramString}${window.location.hash}`;
         history.pushState(undefined, '', query);
     }
 };
+
+export const getGeolocation = (): Promise<GeolocationPosition> => new Promise<GeolocationPosition>((resolve, reject) => {
+    if (!navigator.geolocation)
+        return reject('Your browser does not support geolocation');
+
+    const error = () => reject(new Error('Unable to get your location'));
+
+    navigator.geolocation.getCurrentPosition(resolve, error);
+});

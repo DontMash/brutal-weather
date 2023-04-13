@@ -1,8 +1,5 @@
 <script lang="ts">
-  import LoadingState from './LoadingState.svelte';
   import ErrorComponent from '../page/Error.svelte';
-  import CircleFlag from '../CircleFlag.svelte';
-  import LocationTitle from './LocationTitle.svelte';
   import LocationButton from './LocationButton.svelte';
 
   import { updateQuery } from '../utils';
@@ -12,9 +9,7 @@
     updateQuery(new URLSearchParams(favorite.query));
 </script>
 
-{#await favoritesService.getAll()}
-  <LoadingState />
-{:then favorites}
+{#await favoritesService.getAll() then favorites}
   {#if favorites.length < 1}
     <ErrorComponent error={new Error('No favorites found')} />
   {:else}

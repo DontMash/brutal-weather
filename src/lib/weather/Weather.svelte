@@ -7,12 +7,13 @@
 
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
-  import { updateQuery } from '../utils';
+  import { getGeolocation, updateQuery } from '../utils';
   import { State } from './app.types';
   import type { Location } from './geocoding.types';
   import type { Forecast } from './forecast.types';
   import { getForecast } from './forecast.service';
   import { getLocations } from './geocoding.service';
+  import LoadingState from './LoadingState.svelte';
 
   let currentSearch: string;
   let currentLocation: Partial<Location> = { name: 'Your location' };
@@ -30,14 +31,18 @@
   locationsStore.subscribe((request) => {
     if (!request) return;
 
-    stateStore.update(() => State.Search);
-    request.catch((error) => errorStore.update(() => error));
+    stateStore.update(() => State.Loading);
+    request
+      .then(() => stateStore.update(() => State.Search))
+      .catch((error) => errorStore.update(() => error));
   });
   forecastStore.subscribe((request) => {
     if (!request) return;
 
-    stateStore.update(() => State.Result);
-    request.catch((error) => errorStore.update(() => error));
+    stateStore.update(() => State.Loading);
+    request
+      .then(() => stateStore.update(() => State.Result))
+      .catch((error) => errorStore.update(() => error));
   });
 
   const onLocationSearch = (value: string) => {
@@ -49,27 +54,35 @@
     currentLocation = location;
     forecastStore.update(() => getForecast(location.latitude, location.longitude));
   };
-  const onGeolocation = () => {
+  const onDefaultLocation = () => {
     const request = new Promise<Forecast>((resolve, reject) => {
-      if (!navigator.geolocation)
-        return reject('Your browser does not support geolocation');
+      getGeolocation()
+        .then((position) => {
+          currentLocation = {
+            name: 'Your location',
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+          const params = new URLSearchParams({
+            latitude: position.coords.latitude.toString(),
+            longitude: position.coords.longitude.toString(),
+          });
+          updateQuery(params, false);
 
-      const success = (position: GeolocationPosition) => {
-        currentLocation = {
-          name: 'Your location',
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        updateQuery(new URLSearchParams(), false);
-
-        resolve(getForecast(position.coords.latitude, position.coords.longitude));
-      };
-      const error = () => reject(new Error('Unable to get your location (blocked)'));
-
-      navigator.geolocation.getCurrentPosition(success, error);
+          resolve(getForecast(position.coords.latitude, position.coords.longitude));
+        })
+        .catch(reject);
     });
 
     forecastStore.update(() => request);
+  };
+  const onGeolocation = (latitude: number, longitude: number) => {
+    currentLocation = {
+      name: 'Your location',
+      latitude,
+      longitude,
+    };
+    forecastStore.update(() => getForecast(latitude, longitude));
   };
   const onFavorites = () => {
     stateStore.update(() => State.Favorites);
@@ -82,11 +95,26 @@
 
       resolve(onLocationSelect(location));
     });
+  const updateQueryGeolocation = () => {
+    stateStore.update(() => State.Loading);
+
+    getGeolocation()
+      .then((position) => {
+        const params = new URLSearchParams({
+          latitude: position.coords.latitude.toString(),
+          longitude: position.coords.longitude.toString(),
+        });
+        updateQuery(params);
+      })
+      .catch((error) => errorStore.update(() => error));
+  };
 
   onMount(() => {
     const params = new URLSearchParams(window.location.search);
     const isLocationRequest = !!params.get('id') && !!params.get('name');
     const isSearchRequest = !!params.get('search');
+    const isGeolocationRequest = !!params.get('latitude') && !!params.get('longitude');
+    const isFavoritesRequest = !!params.get('favorites');
 
     if (isLocationRequest) {
       const id = +params.get('id');
@@ -97,8 +125,14 @@
     } else if (isSearchRequest) {
       const search = params.get('search');
       onLocationSearch(search);
+    } else if (isGeolocationRequest) {
+      const latitude = +params.get('latitude');
+      const longitude = +params.get('longitude');
+      onGeolocation(latitude, longitude);
+    } else if (isFavoritesRequest) {
+      onFavorites();
     } else {
-      onGeolocation();
+      onDefaultLocation();
     }
   });
 </script>
@@ -108,11 +142,13 @@
 >
   <InputHeader
     value={currentSearch}
-    on:favorite={() => onFavorites()}
-    on:geolocation={() => onGeolocation()}
+    on:geolocation={() => updateQueryGeolocation()}
   />
 
   <div class="grow overflow-y-auto overflow-x-hidden">
+    {#if $stateStore === State.Loading}
+      <LoadingState />
+    {/if}
     {#if $stateStore === State.Error}
       <ErrorComponent error={$errorStore} />
     {/if}
@@ -120,11 +156,9 @@
     {#if $stateStore === State.Search}
       <SearchState locationsRequest={$locationsStore} />
     {/if}
-
     {#if $stateStore === State.Favorites}
       <FavoritesState />
     {/if}
-
     {#if $stateStore === State.Result}
       <ResultState forecastRequest={$forecastStore} location={currentLocation} />
     {/if}

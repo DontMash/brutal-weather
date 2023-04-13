@@ -4,14 +4,14 @@
   export let location: Partial<Location>;
 </script>
 
-<span class="leading-none">
+<span class="font-medium leading-none">
   <slot />{location.name}
 </span>
-<span class="font-light text-[80%] leading-none text-slate-400">
+<small class="text-[0.75em] leading-none">
   {#if location.admin1}
     {location.admin1}
   {/if}
   {#if location.admin3}
     - {location.admin3}
   {/if}
-</span>
+</small>

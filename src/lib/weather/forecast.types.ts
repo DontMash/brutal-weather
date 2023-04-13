@@ -1,4 +1,7 @@
 export type Forecast = {
+    latitude: number,
+    longitude: number,
+    elevation: number,
     current_weather: Weather;
 };
 

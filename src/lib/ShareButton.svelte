@@ -31,6 +31,6 @@
   };
 </script>
 
-<AsyncButton color={'secondary'} loading={isLoading} bind:this={button} on:click={onShare}>
+<AsyncButton loading={isLoading} bind:this={button} on:click={onShare}>
   <ShareIcon />
 </AsyncButton>
