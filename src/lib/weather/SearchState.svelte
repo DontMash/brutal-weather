@@ -1,12 +1,11 @@
 <script lang="ts">
   import LoadingState from './LoadingState.svelte';
   import ErrorComponent from '../page/Error.svelte';
+  import LocationButton from './LocationButton.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import type { Location } from './geocoding.types';
   import { updateQuery } from '../utils';
-  import CircleFlag from '../CircleFlag.svelte';
-  import LocationTitle from './LocationTitle.svelte';
 
   export let locationsRequest: Promise<Array<Location>>;
 
@@ -32,16 +31,7 @@
     <ul class="divide-y-2 divide-neutral-800 border-b-2 border-neutral-800">
       {#each locations as location}
         <li>
-          <button
-            class="flex w-full items-center space-x-1 py-1 px-2"
-            aria-label={`Select ${location.name}`}
-            on:click={() => onSelect(location)}
-          >
-            <CircleFlag country={location.country} country_code={location.country_code} />
-            <div class="flex flex-col text-left">
-              <LocationTitle {location} />
-            </div>
-          </button>
+          <LocationButton {location} on:click={(event) => onSelect(event.detail)} />
         </li>
       {/each}
     </ul>

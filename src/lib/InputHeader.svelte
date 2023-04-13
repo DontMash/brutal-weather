@@ -55,6 +55,7 @@
       <button
         class="absolute top-1/2 right-0 block w-8 -translate-y-1/2 transition-colors hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"
         type="button"
+        aria-label="Clear search input"
         on:click={onClear}
       >
         <CloseIcon />
@@ -70,7 +71,7 @@
     </button>
 
     <button
-      class="!ml-0 block h-full w-16 flex-shrink-0 bg-red-300 fill-neutral-800 p-3 transition-colors hover:bg-red-400 focus:outline-none focus-visible:bg-red-400 active:bg-red-500"
+      class="block h-full w-16 flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
       type="button"
       aria-label="Get weather forecast for your location"
       on:click={() => dispatch('favorite')}
@@ -79,7 +80,7 @@
     </button>
 
     <button
-      class="!ml-0 block h-full w-16 flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
+      class="block h-full w-16 flex-shrink-0 bg-neutral-800 fill-slate-100 p-3 transition-colors hover:bg-neutral-700 focus:outline-none focus-visible:bg-neutral-700 active:bg-neutral-600"
       type="button"
       aria-label="Get weather forecast for your location"
       on:click={() => dispatch('geolocation')}
