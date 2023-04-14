@@ -2,7 +2,7 @@
   import CircleFlag from '../CircleFlag.svelte';
 
   import { createEventDispatcher } from 'svelte';
-  import type { Location } from './geocoding.types';
+  import type { Location } from './geocoding';
   import LocationTitle from './LocationTitle.svelte';
 
   const dispatch = createEventDispatcher();

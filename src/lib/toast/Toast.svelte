@@ -11,7 +11,7 @@
 </script>
 
 <span
-  class={`${typeVariations[type]} cross-shadow block rounded-2xl border-2 border-neutral-800 px-3 py-2 text-center`}
+  class={`${typeVariations[type]} cross-shadow block rounded-2xl border-2 border-neutral-800 px-3 py-2 text-center select-none`}
 >
   <slot>Placeholder</slot>
 </span>

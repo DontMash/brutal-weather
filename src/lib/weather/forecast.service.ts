@@ -1,5 +1,5 @@
-import type { Forecast } from './forecast.types';
-import type { Response } from './api.types';
+import type { Forecast } from './forecast';
+import type { Response } from './api';
 import { get } from '../utils';
 
 const BASE_URL = 'https://api.open-meteo.com/v1/';

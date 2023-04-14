@@ -44,10 +44,10 @@
 
 <header class="flex h-16 items-center border-b-2 border-neutral-800">
   <form class="flex w-full divide-x-2 divide-neutral-800" on:submit={onSubmit}>
-    <label class="relative" for={CITY_INPUT_NAME}>
+    <label class="group relative" for={CITY_INPUT_NAME}>
       <span class="sr-only block text-xs">City</span>
       <input
-        class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 hover:bg-slate-200 hover:placeholder:text-slate-400 focus:w-[16.75rem] focus:bg-slate-200 focus:outline-none"
+        class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 hover:bg-slate-200 hover:placeholder:text-slate-400 group-hover:w-[16.75rem] focus:w-[16.75rem] focus:bg-slate-200 focus:outline-none"
         name={CITY_INPUT_NAME}
         type="text"
         placeholder="City..."
@@ -58,10 +58,10 @@
         bind:value
       />
       <button
-        class="absolute top-1/2 right-0 block w-8 -translate-y-1/2 transition-colors hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"
+        class="absolute top-1/2 right-0 block w-8 -translate-y-1/2 transition hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"
         type="button"
         aria-label="Clear search input"
-        on:click={() => onClear}
+        on:click={() => onClear()}
       >
         <CloseIcon />
       </button>

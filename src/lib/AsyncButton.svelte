@@ -2,7 +2,7 @@
   import Button from './Button.svelte';
 
   import { createEventDispatcher } from 'svelte';
-  import type { Color } from './button.types';
+  import type { Color } from './button';
 
   const ANIMATION_DURATION: number = 300;
   const dispatch = createEventDispatcher();

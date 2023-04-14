@@ -3,7 +3,7 @@
   import LocationButton from './LocationButton.svelte';
 
   import { createEventDispatcher } from 'svelte';
-  import type { Location } from './geocoding.types';
+  import type { Location } from './geocoding';
   import { updateQuery } from '../utils';
 
   export let locationsRequest: Promise<Array<Location>>;

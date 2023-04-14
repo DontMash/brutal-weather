@@ -1,4 +1,4 @@
-import type { Location } from './weather/geocoding.types';
+import type { Location } from './weather/geocoding';
 
 export type Favorite = {
     id: number,

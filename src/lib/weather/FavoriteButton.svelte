@@ -3,7 +3,7 @@
   import FavoriteFilledIcon from '../icons/FavoriteFilledIcon.svelte';
   import FavoriteIcon from '../icons/FavoriteIcon.svelte';
 
-  import type { Location } from './geocoding.types';
+  import type { Location } from './geocoding';
   import toastService, { ToastType } from '../toast/toast.service';
   import favoritesService from '../favorites.service';
   import { onMount } from 'svelte';

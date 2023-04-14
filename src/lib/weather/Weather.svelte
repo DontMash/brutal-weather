@@ -5,12 +5,12 @@
   import FavoritesState from './FavoritesState.svelte';
   import ResultState from './ResultState.svelte';
 
-  import { onMount } from 'svelte';
+  import { onMount, type ComponentType } from 'svelte';
   import { writable } from 'svelte/store';
   import { getGeolocation, updateQuery } from '../utils';
-  import { State } from './app.types';
-  import type { Location } from './geocoding.types';
-  import type { Forecast } from './forecast.types';
+  import { State } from './weather.app';
+  import type { Location } from './geocoding';
+  import type { Forecast } from './forecast';
   import { getForecast } from './forecast.service';
   import { getLocations } from './geocoding.service';
   import LoadingState from './LoadingState.svelte';
@@ -48,7 +48,7 @@
   const onLocationSearch = (value: string) => {
     const search = value.trim();
     currentSearch = search;
-    locationsStore.update(() => getLocations(search));
+    locationsStore.update(() => getLocations(search, 100));
   };
   const onLocationSelect = (location: Location) => {
     currentLocation = location;
@@ -90,7 +90,7 @@
 
   const getQueryLocation = (id: number, name: string) =>
     new Promise<void>(async (resolve, reject) => {
-      const location = (await getLocations(name)).find((location) => location.id === id);
+      const location = (await getLocations(name, 100)).find((location) => location.id === id);
       if (!location) return reject(new Error('Unknown location request'));
 
       resolve(onLocationSelect(location));
@@ -138,7 +138,7 @@
 </script>
 
 <figure
-  class="bold-shadow relative flex h-96 w-[21rem] flex-col overflow-hidden rounded-xl border-2 border-neutral-800 bg-slate-100"
+  class="bold-shadow relative flex h-[25rem] w-[21rem] flex-col overflow-hidden rounded-xl border-2 border-neutral-800 bg-slate-100"
 >
   <InputHeader
     value={currentSearch}

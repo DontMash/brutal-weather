@@ -4,8 +4,8 @@
   import FavoriteButton from './FavoriteButton.svelte';
   import ShareButton from '../ShareButton.svelte';
 
-  import type { Forecast } from './forecast.types';
-  import type { Location } from './geocoding.types';
+  import type { Forecast } from './forecast';
+  import type { Location } from './geocoding';
 
   export let forecastRequest: Promise<Forecast>;
   export let location: Partial<Location>;
