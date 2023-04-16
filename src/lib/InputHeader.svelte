@@ -42,12 +42,12 @@
   };
 </script>
 
-<header class="flex h-16 items-center border-b-2 border-neutral-800">
+<header class="flex h-16 w-full items-center border-b-2 border-neutral-800">
   <form class="flex w-full divide-x-2 divide-neutral-800" on:submit={onSubmit}>
-    <label class="group relative" for={CITY_INPUT_NAME}>
+    <label class="group relative grow" for={CITY_INPUT_NAME}>
       <span class="sr-only block text-xs">City</span>
       <input
-        class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 hover:bg-slate-200 hover:placeholder:text-slate-400 group-hover:w-[16.75rem] focus:w-[16.75rem] focus:bg-slate-200 focus:outline-none"
+        class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 hover:bg-slate-200 hover:placeholder:text-slate-400 group-hover:w-[calc(min(theme(width.screen),_theme(maxWidth.5xl))_-_4.25rem)] focus:w-[calc(min(theme(width.screen),_theme(maxWidth.6xl))_-_4.25rem)] focus:bg-slate-200 focus:outline-none"
         name={CITY_INPUT_NAME}
         type="text"
         placeholder="City..."

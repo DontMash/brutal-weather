@@ -9,7 +9,7 @@
     <Toaster />
   </div>
 
-  <section class="relative">
+  <section class="max-w-5xl w-full">
     <h1 class="sr-only">Weather Forecast</h1>
     <Weather />
   </section>

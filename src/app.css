@@ -16,11 +16,21 @@
 
 @layer utilities {
   .bold-shadow {
-    box-shadow: 0.3rem 0.3rem 0 theme(colors.neutral.800);
+    @apply shadow-[0.3rem_0.3rem_0_theme(colors.neutral.800)];
+  }
+  .bold-drop-shadow {
+    --tw-drop-shadow-color: theme(colors.neutral.800);
+    @apply drop-shadow-[0.3rem_0.3rem_0_var(--tw-drop-shadow-color)];
+  }
+  .drop-shadow-sky {
+    --tw-drop-shadow-color: theme(colors.sky.300);
+  }
+  .drop-shadow-amber {
+    --tw-drop-shadow-color: theme(colors.amber.300);
   }
 
   .cross-shadow {
-    @apply relative before:absolute before:-z-10 before:top-2 before:left-2 before:block before:h-full before:w-full before:rounded-[inherit];
+    @apply relative before:absolute before:top-2 before:left-2 before:-z-10 before:block before:h-full before:w-full before:rounded-[inherit];
   }
   .cross-shadow::before {
     --size: 4px;

@@ -15,15 +15,20 @@
   import ThunderstormWeatherIcon from '../icons/weather/ThunderstormWeatherIcon.svelte';
   import ThunderstormHailWeatherIcon from '../icons/weather/ThunderstormHailWeatherIcon.svelte';
 
-  import { getWeatherStatus, WeatherStatus, type WeatherCode } from './forecast';
+  import { getWeatherStatus, WeatherStatus, type WeatherCode, Daytime } from './forecast';
+  import ClearNightWeatherIcon from '../icons/weather/ClearNightWeatherIcon.svelte';
+  import CloudyNightWeatherIcon from '../icons/weather/CloudyNightWeatherIcon.svelte';
 
   export let code: WeatherCode;
+  export let daytime: Daytime = 1;
 
   $: status = getWeatherStatus(code);
 
   const weatherVariants: Record<WeatherStatus, ComponentType> = {
-    [WeatherStatus.Clear]: ClearWeatherIcon,
-    [WeatherStatus.Cloudy]: CloudyWeatherIcon,
+    [WeatherStatus.Clear]:
+      daytime === Daytime.Day ? ClearWeatherIcon : ClearNightWeatherIcon,
+    [WeatherStatus.Cloudy]:
+      daytime === Daytime.Day ? CloudyWeatherIcon : CloudyNightWeatherIcon,
     [WeatherStatus.Overcast]: OvercastWeatherIcon,
     [WeatherStatus.Foggy]: FoggyWeatherIcon,
     [WeatherStatus.Drizzle]: DrizzleWeatherIcon,

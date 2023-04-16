@@ -10,18 +10,33 @@
   export let location: Partial<Location>;
 
   $: dateString = new Date(forecast.current_weather.time).toLocaleString().slice(0, -3);
+
+  type TemperatureStatus = 'cold' | 'normal' | 'hot';
+  const getTemperatureStatus = (temperature: number): TemperatureStatus => {
+    if (temperature <= 0) return 'cold';
+    else if (temperature >= 20) return 'hot';
+    else return 'normal';
+  };
+  const tempVariants: Record<TemperatureStatus, string> = {
+    cold: 'bold-drop-shadow drop-shadow-sky',
+    normal: '',
+    hot: 'bold-drop-shadow drop-shadow-amber',
+  };
 </script>
 
 <div class="flex h-full flex-col items-center divide-y-2 divide-neutral-800">
   <div class="flex grow flex-col items-center justify-center space-y-2 p-2 text-center">
-    <strong class="text-8xl leading-none">
-      {forecast.current_weather.temperature}°
+    <strong
+      class={`${
+        tempVariants[getTemperatureStatus(forecast.current_weather.temperature)]
+      } text-8xl leading-none`}
+      >{forecast.current_weather.temperature}°
     </strong>
     <time class="text-lg leading-none" datetime={dateString}>{dateString}</time>
   </div>
   <div class="grid w-full grid-cols-2 divide-x-2 divide-neutral-800">
     <div class="flex flex-col items-center justify-center bg-neutral-800 p-2">
-      <WeatherStatus code={forecast.current_weather.weathercode} />
+      <WeatherStatus code={forecast.current_weather.weathercode} daytime={forecast.current_weather.is_day} />
     </div>
     <div
       class="flex flex-col items-center justify-center bg-amber-300 fill-neutral-800 p-2"

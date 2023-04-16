@@ -138,7 +138,7 @@
 </script>
 
 <figure
-  class="bold-shadow relative flex h-[25rem] w-[21rem] flex-col overflow-hidden rounded-xl border-2 border-neutral-800 bg-slate-100"
+  class="relative flex h-[26rem] w-full flex-col overflow-hidden rounded-xl bold-shadow border-2 border-neutral-800 bg-slate-100"
 >
   <InputHeader
     value={currentSearch}
