@@ -1,4 +1,6 @@
 <script lang="ts">
+  import ShareButton from '../ShareButton.svelte';
+  import FavoriteButton from './FavoriteButton.svelte';
   import LocationTitle from './LocationTitle.svelte';
   import WeatherStatus from './WeatherStatus.svelte';
   import WindIndicator from './WindIndicator.svelte';
@@ -10,6 +12,7 @@
   export let location: Partial<Location>;
 
   $: dateString = new Date(forecast.current_weather.time).toLocaleString().slice(0, -3);
+  $: validLocation = location as Location;
 
   type TemperatureStatus = 'cold' | 'normal' | 'hot';
   const getTemperatureStatus = (temperature: number): TemperatureStatus => {
@@ -24,7 +27,7 @@
   };
 </script>
 
-<div class="flex h-full flex-col items-center divide-y-2 divide-neutral-800">
+<article class="flex h-full flex-col items-center divide-y-2 divide-neutral-800">
   <div class="flex grow flex-col items-center justify-center space-y-2 p-2 text-center">
     <strong
       class={`${
@@ -36,7 +39,10 @@
   </div>
   <div class="grid w-full grid-cols-2 divide-x-2 divide-neutral-800">
     <div class="flex flex-col items-center justify-center bg-neutral-800 p-2">
-      <WeatherStatus code={forecast.current_weather.weathercode} daytime={forecast.current_weather.is_day} />
+      <WeatherStatus
+        code={forecast.current_weather.weathercode}
+        daytime={forecast.current_weather.is_day}
+      />
     </div>
     <div
       class="flex flex-col items-center justify-center bg-amber-300 fill-neutral-800 p-2"
@@ -57,7 +63,16 @@
       </h2>
     </div>
     <div class="flex items-center p-2">
-      <slot />
+      <ul class="flex space-x-2">
+        {#if location.id}
+          <li>
+            <FavoriteButton location={validLocation} />
+          </li>
+        {/if}
+        <li>
+          <ShareButton />
+        </li>
+      </ul>
     </div>
   </div>
-</div>
+</article>
