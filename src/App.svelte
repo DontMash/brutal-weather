@@ -4,12 +4,15 @@
   import Footer from './lib/page/Footer.svelte';
 </script>
 
-<main class="flex min-h-screen flex-col items-center justify-center px-4">
+<main
+  class="flex min-h-screen flex-col items-center justify-center px-4 outline-none"
+  tabindex="-1"
+>
   <section class="w-full max-w-5xl">
     <h1 class="sr-only">Weather Forecast</h1>
     <Weather />
   </section>
-  
+
   <div class="fixed top-12 left-1/2 -translate-x-1/2">
     <Toaster />
   </div>

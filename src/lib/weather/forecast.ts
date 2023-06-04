@@ -1,23 +1,47 @@
 export type Forecast = {
     current_weather: Weather;
-    elevation: number,
-    latitude: number,
-    longitude: number,
+    elevation: Meter;
+    hourly?: HourlyWeather;
+    latitude: Degrees;
+    longitude: Degrees;
 };
-
 type Weather = {
     is_day: Daytime;
-    temperature: number;
-    time: string;
+    temperature: Celsius;
+    time: DateTimeString;
     weathercode: WeatherCode;
-    winddirection: number;
-    windspeed: number;
+    winddirection: Degrees;
+    windspeed: KilometerPerHour;
 };
+/**
+ * Represents the weather forecast for the next week (starting today at midnight).
+ * Each list contains of 168 (24 * 7) entries.
+ */
+type HourlyWeather = {
+    time: Array<DateTimeString>;
+    is_day: Array<Daytime>;
+    temperature_2m: Array<Celsius>,
+    relativehumidity_2m?: Array<Percent>,
+    apparent_temperature?: Array<Celsius>,
+    precipitation?: Array<Millimeter>
+    precipitation_probability?: Array<Percent>,
+    weathercode?: Array<WeatherCode>,
+}
 
+type DateTimeString = string;
+type Millimeter = number;
+type Meter = number;
+type KilometerPerHour = number;
+type Degrees = number;
+type Celsius = number;
+type Percent = number;
 export enum Daytime {
     Night,
     Day,
 }
+/**
+ * WMO code
+ */
 export type WeatherCode = 0 | 1 | 2 | 3 | 45 | 48 | 51 | 53 | 55 | 56 | 57 | 61 | 63 | 65 | 66 | 67 | 71 | 73 | 75 | 77 | 80 | 81 | 82 | 85 | 86 | 95 | 96 | 99;
 export enum WeatherStatus {
     Clear = 'Clear',
@@ -96,4 +120,13 @@ export const getWeatherStatus = (code: WeatherCode): WeatherStatus => {
         default:
             throw new Error('Unknown weather code');
     }
+};
+
+export type TemperatureStatus = 'cold' | 'normal' | 'hot';
+const COLD_TEMPERATURE_CELSIUS = 0;
+const HOT_TEMPERATURE_CELSIUS = 20;
+export const getTemperatureStatus = (temperature: number): TemperatureStatus => {
+  if (temperature <= COLD_TEMPERATURE_CELSIUS) return 'cold';
+  else if (temperature >= HOT_TEMPERATURE_CELSIUS) return 'hot';
+  else return 'normal';
 };

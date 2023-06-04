@@ -47,7 +47,7 @@
     <label class="group relative grow" for={CITY_INPUT_NAME}>
       <span class="sr-only block text-xs">City</span>
       <input
-        class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 hover:bg-slate-200 hover:placeholder:text-slate-400 group-hover:w-[calc(min(theme(width.screen)_-_theme(padding.8),_theme(maxWidth.5xl))_-_4.25rem)] focus:w-[calc(min(theme(width.screen),_theme(maxWidth.5xl))_-_4.25rem)] focus:bg-slate-200 focus:outline-none"
+        class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 placeholder:transition hover:bg-slate-200 hover:delay-300 hover:placeholder:text-slate-400 hover:placeholder:delay-300 focus:w-[calc(min(theme(width.screen),_theme(maxWidth.5xl))_-_4.25rem)] focus:bg-slate-200 focus:outline-none group-hover:w-[calc(min(theme(width.screen)_-_theme(padding.8),_theme(maxWidth.5xl))_-_4.25rem)]"
         name={CITY_INPUT_NAME}
         type="text"
         placeholder="City..."

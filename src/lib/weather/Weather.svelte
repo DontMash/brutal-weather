@@ -5,7 +5,7 @@
   import FavoritesState from './FavoritesState.svelte';
   import ResultState from './ResultState.svelte';
 
-  import { onMount, type ComponentType } from 'svelte';
+  import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
   import { getGeolocation, updateQuery } from '../utils';
   import { State } from './weather.app';
@@ -82,7 +82,9 @@
       latitude,
       longitude,
     };
-    forecastStore.update(() => getForecast(latitude, longitude));
+    forecastStore.update(() =>
+      getForecast(latitude, longitude)
+    );
   };
   const onFavorites = () => {
     stateStore.update(() => State.Favorites);
@@ -90,7 +92,9 @@
 
   const getQueryLocation = (id: number, name: string) =>
     new Promise<void>(async (resolve, reject) => {
-      const location = (await getLocations(name, 100)).find((location) => location.id === id);
+      const location = (await getLocations(name, 100)).find(
+        (location) => location.id === id
+      );
       if (!location) return reject(new Error('Unknown location request'));
 
       resolve(onLocationSelect(location));
@@ -138,12 +142,9 @@
 </script>
 
 <figure
-  class="relative flex h-[26rem] w-full flex-col overflow-hidden rounded-xl bold-shadow border-2 border-neutral-800 bg-slate-100"
+  class="bold-shadow relative flex h-[26rem] w-full flex-col overflow-hidden rounded-xl border-2 border-neutral-800 bg-slate-100"
 >
-  <InputHeader
-    value={currentSearch}
-    on:geolocation={() => updateQueryGeolocation()}
-  />
+  <InputHeader value={currentSearch} on:geolocation={() => updateQueryGeolocation()} />
 
   <div class="grow overflow-y-auto overflow-x-hidden">
     {#if $stateStore === State.Loading}
