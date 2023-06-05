@@ -1,7 +1,7 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+import theme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,svelte}",
@@ -21,7 +21,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      'rubik': ['Rubik', ...defaultTheme.fontFamily.sans],
+      'rubik': ['Rubik', ...theme.fontFamily.sans],
     },
   },
   corePlugins: {
@@ -30,4 +30,5 @@ module.exports = {
   plugins: [
     require('@tailwindcss/aspect-ratio'),
   ],
-};
+}
+

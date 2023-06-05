@@ -1,5 +1,5 @@
 <script>
-  import FavoriteFilledIcon from '../icons/FavoriteFilledIcon.svelte';
+  import FavoriteFilledIcon from '$lib/components/icons/FavoriteFilledIcon.svelte';
 </script>
 
 <footer
