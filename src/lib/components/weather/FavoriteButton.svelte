@@ -5,7 +5,7 @@
 
   import type { Location } from './geocoding';
   import toastService, { ToastType } from '../toast/toast.service';
-  import favoritesService from '../favorites.service';
+  import favoritesService from './favorites.service';
   import { onMount } from 'svelte';
 
   const TOAST_DURATION: number = 3000;

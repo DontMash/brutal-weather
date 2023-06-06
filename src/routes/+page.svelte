@@ -1,20 +1,3 @@
 <script lang="ts">
-	import Footer from '../lib/components/page/Footer.svelte';
-	import Toaster from '../lib/components/toast/Toaster.svelte';
-	import Weather from '../lib/components/weather/Weather.svelte';
 </script>
 
-<main
-	class="flex min-h-screen flex-col items-center justify-center px-4 outline-none"
-	tabindex="-1"
->
-	<section class="w-full max-w-5xl">
-		<h1 class="sr-only">Weather Forecast</h1>
-		<Weather />
-	</section>
-
-	<div class="fixed top-12 left-1/2 -translate-x-1/2">
-		<Toaster />
-	</div>
-</main>
-<Footer />

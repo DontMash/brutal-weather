@@ -5,8 +5,8 @@
   import FavoriteButton from './FavoriteButton.svelte';
   import LocationTitle from './LocationTitle.svelte';
 
-  import type { Forecast } from './forecast';
-  import type { Location } from './geocoding';
+  import type { Forecast } from '$lib/weather/forecast';
+  import type { Location } from '$lib/weather/geocoding';
 
   export let forecast: Forecast;
   export let location: Partial<Location>;

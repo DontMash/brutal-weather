@@ -11,20 +11,19 @@ export type Toast = {
 
 class ToastService extends EventTarget {
     private queue: Array<Toast>;
-    private timeout: number;
+    private timeout: NodeJS.Timeout | undefined;
 
     constructor() {
         super();
 
         this.queue = new Array<Toast>();
-        this.timeout = -1;
     }
 
     add(message: string, duration: number = 1000, type: ToastType = ToastType.Info) {
         const toast: Toast = { type, message, duration };
         this.queue.unshift(toast);
 
-        if (this.timeout < 1)
+        if (!this.timeout)
             this.pop();
     }
 
@@ -32,7 +31,7 @@ class ToastService extends EventTarget {
         const toast = this.queue.pop();
         if (!toast) {
             clearTimeout(this.timeout);
-            this.timeout = -1;
+            this.timeout = undefined;
             return;
         }
 

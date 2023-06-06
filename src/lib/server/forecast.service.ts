@@ -1,6 +1,6 @@
-import type { Forecast } from './forecast';
-import type { Response } from './api';
-import { get } from '../utils';
+import type { Forecast, ForecastOptions } from '$lib/weather/forecast';
+import type { Response } from '$lib/weather/open-meteo.api';
+import { get } from '$lib/utils';
 
 const BASE_URL = 'https://api.open-meteo.com/v1/';
 const DEFAULT_FORECAST_OPTIONS: ForecastOptions = {
@@ -14,19 +14,6 @@ const DEFAULT_FORECAST_OPTIONS: ForecastOptions = {
         is_day: true,
     },
 } as const;
-
-type ForecastOptions = {
-    current_weather: boolean,
-    hourly?: ForecastHourlyOptions,
-};
-type ForecastHourlyOptions = {
-    temperature_2m?: boolean,
-    relativehumidity_2m?: boolean,
-    apparent_temperature?: boolean,
-    precipitation_probability?: boolean,
-    weathercode?: boolean,
-    is_day?: boolean,
-};
 
 export const getForecast = (latitude: number, longitude: number, options: ForecastOptions = DEFAULT_FORECAST_OPTIONS): Promise<Forecast> => {
     const url = new URL('forecast', BASE_URL);
@@ -48,5 +35,5 @@ export const getForecast = (latitude: number, longitude: number, options: Foreca
         }
     }
 
-    return (get(url.href) as Promise<Response<Forecast>>);
+    return get<Response<Forecast>>(url.href);
 };

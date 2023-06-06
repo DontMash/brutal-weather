@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Location } from './geocoding';
+  import type { Location } from '$lib/weather/geocoding';
 
   export let location: Partial<Location>;
 </script>

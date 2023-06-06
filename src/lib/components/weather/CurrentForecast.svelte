@@ -6,7 +6,7 @@
     getTemperatureStatus,
     type Forecast,
     type TemperatureStatus,
-  } from './forecast';
+  } from '$lib/weather/forecast';
 
   export let forecast: Forecast;
 

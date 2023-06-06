@@ -1,23 +1,23 @@
 <script lang="ts">
   import type { ComponentType } from 'svelte';
-  import ClearWeatherIcon from '../icons/weather/ClearWeatherIcon.svelte';
-  import CloudyWeatherIcon from '../icons/weather/CloudyWeatherIcon.svelte';
-  import OvercastWeatherIcon from '../icons/weather/OvercastWeatherIcon.svelte';
-  import FoggyWeatherIcon from '../icons/weather/FoggyWeatherIcon.svelte';
-  import DrizzleWeatherIcon from '../icons/weather/DrizzleWeatherIcon.svelte';
-  import FreezingDrizzleWeatherIcon from '../icons/weather/FreezingDrizzleWeatherIcon.svelte';
-  import RainWeatherIcon from '../icons/weather/RainWeatherIcon.svelte';
-  import FreezingRainWeatherIcon from '../icons/weather/FreezingRainWeatherIcon.svelte';
-  import SnowFallWeatherIcon from '../icons/weather/SnowFallWeatherIcon.svelte';
-  import SnowGrainsWeatherIcon from '../icons/weather/SnowGrainsWeatherIcon.svelte';
-  import RainShowerWeatherIcon from '../icons/weather/RainShowerWeatherIcon.svelte';
-  import SnowShowerWeatherIcon from '../icons/weather/SnowShowerWeatherIcon.svelte';
-  import ThunderstormWeatherIcon from '../icons/weather/ThunderstormWeatherIcon.svelte';
-  import ThunderstormHailWeatherIcon from '../icons/weather/ThunderstormHailWeatherIcon.svelte';
+  import ClearWeatherIcon from '$lib/components/icons/weather/ClearWeatherIcon.svelte';
+  import CloudyWeatherIcon from '$lib/components/icons/weather/CloudyWeatherIcon.svelte';
+  import OvercastWeatherIcon from '$lib/components/icons/weather/OvercastWeatherIcon.svelte';
+  import FoggyWeatherIcon from '$lib/components/icons/weather/FoggyWeatherIcon.svelte';
+  import DrizzleWeatherIcon from '$lib/components/icons/weather/DrizzleWeatherIcon.svelte';
+  import FreezingDrizzleWeatherIcon from '$lib/components/icons/weather/FreezingDrizzleWeatherIcon.svelte';
+  import RainWeatherIcon from '$lib/components/icons/weather/RainWeatherIcon.svelte';
+  import FreezingRainWeatherIcon from '$lib/components/icons/weather/FreezingRainWeatherIcon.svelte';
+  import SnowFallWeatherIcon from '$lib/components/icons/weather/SnowFallWeatherIcon.svelte';
+  import SnowGrainsWeatherIcon from '$lib/components/icons/weather/SnowGrainsWeatherIcon.svelte';
+  import RainShowerWeatherIcon from '$lib/components/icons/weather/RainShowerWeatherIcon.svelte';
+  import SnowShowerWeatherIcon from '$lib/components/icons/weather/SnowShowerWeatherIcon.svelte';
+  import ThunderstormWeatherIcon from '$lib/components/icons/weather/ThunderstormWeatherIcon.svelte';
+  import ThunderstormHailWeatherIcon from '$lib/components/icons/weather/ThunderstormHailWeatherIcon.svelte';
+  import ClearNightWeatherIcon from '$lib/components/icons/weather/ClearNightWeatherIcon.svelte';
+  import CloudyNightWeatherIcon from '$lib/components/icons/weather/CloudyNightWeatherIcon.svelte';
 
-  import { getWeatherStatus, WeatherStatus, type WeatherCode, Daytime } from './forecast';
-  import ClearNightWeatherIcon from '../icons/weather/ClearNightWeatherIcon.svelte';
-  import CloudyNightWeatherIcon from '../icons/weather/CloudyNightWeatherIcon.svelte';
+  import { getWeatherStatus, WeatherStatus, type WeatherCode, Daytime } from '$lib/weather/forecast';
 
   export let code: WeatherCode;
   export let daytime: Daytime = 1;

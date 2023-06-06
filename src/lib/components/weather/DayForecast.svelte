@@ -1,7 +1,7 @@
 <script lang="ts">
   import WeatherStatus from './WeatherStatus.svelte';
   
-  import type { Forecast } from './forecast';
+  import type { Forecast } from '$lib/weather/forecast';
 
   export let forecast: Forecast;
 </script>

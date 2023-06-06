@@ -1,3 +1,16 @@
+export type ForecastOptions = {
+    current_weather: boolean,
+    hourly?: ForecastHourlyOptions,
+};
+type ForecastHourlyOptions = {
+    temperature_2m?: boolean,
+    relativehumidity_2m?: boolean,
+    apparent_temperature?: boolean,
+    precipitation_probability?: boolean,
+    weathercode?: boolean,
+    is_day?: boolean,
+};
+
 export type Forecast = {
     current_weather: Weather;
     elevation: Meter;
@@ -23,10 +36,10 @@ type HourlyWeather = {
     temperature_2m: Array<Celsius>,
     relativehumidity_2m?: Array<Percent>,
     apparent_temperature?: Array<Celsius>,
-    precipitation?: Array<Millimeter>
+    precipitation?: Array<Millimeter>;
     precipitation_probability?: Array<Percent>,
     weathercode?: Array<WeatherCode>,
-}
+};
 
 type DateTimeString = string;
 type Millimeter = number;
@@ -126,7 +139,21 @@ export type TemperatureStatus = 'cold' | 'normal' | 'hot';
 const COLD_TEMPERATURE_CELSIUS = 0;
 const HOT_TEMPERATURE_CELSIUS = 20;
 export const getTemperatureStatus = (temperature: number): TemperatureStatus => {
-  if (temperature <= COLD_TEMPERATURE_CELSIUS) return 'cold';
-  else if (temperature >= HOT_TEMPERATURE_CELSIUS) return 'hot';
-  else return 'normal';
+    if (temperature <= COLD_TEMPERATURE_CELSIUS) return 'cold';
+    else if (temperature >= HOT_TEMPERATURE_CELSIUS) return 'hot';
+    else return 'normal';
+};
+
+type WinddirectionTitle = 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
+export const getTitle = (value: number): WinddirectionTitle => {
+    const direction = value % 360;
+    if (direction >= 337.5 && direction < 360 || direction >= 0 && direction < 22.5) return 'N';
+    else if (direction >= 22.5 && direction < 67.5) return 'NE';
+    else if (direction >= 67.5 && direction < 112.5) return 'E';
+    else if (direction >= 112.5 && direction < 157.5) return 'SE';
+    else if (direction >= 157.5 && direction < 202.5) return 'S';
+    else if (direction >= 202.5 && direction < 247.5) return 'SW';
+    else if (direction >= 247.5 && direction < 292.5) return 'W';
+    else if (direction >= 292.5 && direction < 337.5) return 'NW';
+    else throw new Error('Unknown wind direction title');
 };

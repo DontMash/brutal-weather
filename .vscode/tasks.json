@@ -8,6 +8,14 @@
 			"label": "npm: dev",
 			"detail": "vite dev",
 			"group": "build"
+		},
+		{
+			"type": "npm",
+			"script": "test:unit",
+			"problemMatcher": [],
+			"label": "npm: test:unit",
+			"detail": "vitest",
+			"group": "build",
 		}
 	]
 }

@@ -1,46 +1,31 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import ArrowUpAltIcon from '../icons/ArrowUpAltIcon.svelte';
+	import { onMount } from 'svelte';
+  
+	import ArrowUpAltIcon from '$lib/components/icons/ArrowUpAltIcon.svelte';
+	import { getTitle } from '$lib/weather/forecast';
 
-  export let windspeed: number;
-  export let winddirection: number;
+	export let windspeed: number;
+	export let winddirection: number;
 
-  type WinddirectionTitle = 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
+	$: winddirection_title = getTitle(winddirection);
+	let winddirection_icon_element: HTMLElement;
 
-  $: winddirection_title = getTitle(winddirection);
-  let winddirection_icon_element: HTMLElement;
-
-  const getTitle = (direction: number): WinddirectionTitle => {
-    if (direction >= 337.5 && direction < 360 || direction >= 0 && direction < 22.5) return 'N';
-    else if (direction >= 22.5 && direction < 67.5) return 'NE';
-    else if (direction >= 67.5 && direction < 112.5) return 'E';
-    else if (direction >= 112.5 && direction < 157.5) return 'SE';
-    else if (direction >= 157.5 && direction < 202.5) return 'S';
-    else if (direction >= 202.5 && direction < 247.5) return 'SW';
-    else if (direction >= 247.5 && direction < 292.5) return 'W';
-    else if (direction >= 292.5 && direction < 337.5) return 'NW';
-    else throw new Error('Unknown wind direction title');
-  };
-
-  onMount(() => {
-    winddirection_icon_element.style.setProperty(
-      '--direction',
-      `${winddirection.toString()}deg`
-    );
-  });
+	onMount(() => {
+		winddirection_icon_element.style.setProperty('--direction', `${winddirection.toString()}deg`);
+	});
 </script>
 
 <figure class="flex flex-col items-center">
-  <div class="direction-rotate h-16 w-16" bind:this={winddirection_icon_element}>
-    <ArrowUpAltIcon />
-  </div>
-  <small class="text-sm leading-none">
-    {winddirection_title} / {windspeed} km/h
-  </small>
+	<div class="direction-rotate h-16 w-16" bind:this={winddirection_icon_element}>
+		<ArrowUpAltIcon />
+	</div>
+	<small class="text-sm leading-none">
+		{winddirection_title} / {windspeed} km/h
+	</small>
 </figure>
 
 <style lang="postcss">
-  .direction-rotate {
-    transform: rotateZ(var(--direction, 0deg));
-  }
+	.direction-rotate {
+		transform: rotateZ(var(--direction, 0deg));
+	}
 </style>
