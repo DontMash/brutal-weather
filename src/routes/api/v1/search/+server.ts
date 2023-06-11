@@ -6,12 +6,9 @@ export const GET = (({ url }) =>
     new Promise<Response>((resolve, reject) => {
         const name = url.searchParams.get('name') ?? '';
         const limitParam = url.searchParams.get('limit');
-        const limit = limitParam ? +limitParam : undefined;        
+        const limit = limitParam ? +limitParam : undefined;
 
-        return getLocations(name, limit)
+        getLocations(name, limit)
             .then(locations => resolve(new Response(JSON.stringify(locations))))
-            .catch(reason => {
-                const requestError = reason as Error;                
-                return reject(error(400, requestError.message));
-            });
+            .catch(reason => reject(error(404, reason.message)));
     })) satisfies RequestHandler;

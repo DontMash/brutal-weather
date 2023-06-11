@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
+	import Error from '$lib/components/page/Error.svelte';
 	import LocationButton from '$lib/components/weather/LocationButton.svelte';
-	import favoritesService from '$lib/components/weather/favorites.service';
+	import { getAll } from '$lib/components/weather/favorites.service';
 </script>
 
-{#await favoritesService.getAll() then favorites}
+{#await getAll() then favorites}
 	{#if favorites.length > 0}
 		<ul class="divide-y-2 divide-neutral-800 border-b-2 border-neutral-800">
 			{#each favorites as favorite}
@@ -16,6 +15,6 @@
 			{/each}
 		</ul>
 	{:else}
-		<i>No favorites found</i>
+		<Error message={'No favorites found'} />
 	{/if}
 {/await}

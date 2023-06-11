@@ -1,5 +1,5 @@
 <svg
-	class="stroke-neutral-800 stroke-[2px]"
+	class="stroke-neutral-800 stroke-[3px]"
 	viewBox="0 0 320 320"
 	fill="none"
 	xmlns="http://www.w3.org/2000/svg"

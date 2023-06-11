@@ -20,7 +20,7 @@ export const getForecast = (latitude: number, longitude: number, options: Foreca
     url.searchParams.append('latitude', latitude.toString());
     url.searchParams.append('longitude', longitude.toString());
     url.searchParams.append('timezone', 'auto');
-    
+
     if (options.current_weather) {
         url.searchParams.append('current_weather', options.current_weather.toString());
     }

@@ -72,6 +72,11 @@ export enum WeatherStatus {
     Thunderstorm = 'Thunderstorm',
     ThunderstormHail = 'Thunderstorm with hail',
 };
+export type TemperatureStatus = 'cold' | 'normal' | 'hot';
+export type WinddirectionTitle = 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
+
+
+
 export const getWeatherStatus = (code: WeatherCode): WeatherStatus => {
     switch (code) {
         case 0:
@@ -135,7 +140,6 @@ export const getWeatherStatus = (code: WeatherCode): WeatherStatus => {
     }
 };
 
-export type TemperatureStatus = 'cold' | 'normal' | 'hot';
 const COLD_TEMPERATURE_CELSIUS = 0;
 const HOT_TEMPERATURE_CELSIUS = 20;
 export const getTemperatureStatus = (temperature: number): TemperatureStatus => {
@@ -144,8 +148,7 @@ export const getTemperatureStatus = (temperature: number): TemperatureStatus => 
     else return 'normal';
 };
 
-type WinddirectionTitle = 'N' | 'NE' | 'E' | 'SE' | 'S' | 'SW' | 'W' | 'NW';
-export const getTitle = (value: number): WinddirectionTitle => {
+export const getWinddirectionTitle = (value: number): WinddirectionTitle => {
     const direction = value % 360;
     if (direction >= 337.5 && direction < 360 || direction >= 0 && direction < 22.5) return 'N';
     else if (direction >= 22.5 && direction < 67.5) return 'NE';
@@ -157,3 +160,4 @@ export const getTitle = (value: number): WinddirectionTitle => {
     else if (direction >= 292.5 && direction < 337.5) return 'NW';
     else throw new Error('Unknown wind direction title');
 };
+

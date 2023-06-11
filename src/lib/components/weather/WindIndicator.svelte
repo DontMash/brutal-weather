@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-  
+
 	import ArrowUpAltIcon from '$lib/components/icons/ArrowUpAltIcon.svelte';
-	import { getTitle } from '$lib/weather/forecast';
+	import { getWinddirectionTitle } from '$lib/weather/forecast';
 
 	export let windspeed: number;
 	export let winddirection: number;
 
-	$: winddirection_title = getTitle(winddirection);
+	$: winddirection_title = getWinddirectionTitle(winddirection);
 	let winddirection_icon_element: HTMLElement;
 
 	onMount(() => {

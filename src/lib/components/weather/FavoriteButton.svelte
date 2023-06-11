@@ -1,78 +1,64 @@
 <script lang="ts">
-  import AsyncButton from '../AsyncButton.svelte';
-  import FavoriteFilledIcon from '../icons/FavoriteFilledIcon.svelte';
-  import FavoriteIcon from '../icons/FavoriteIcon.svelte';
+	import AsyncButton from '$lib/components/AsyncButton.svelte';
+	import FavoriteFilledIcon from '$lib/components/icons/FavoriteFilledIcon.svelte';
+	import FavoriteIcon from '$lib/components/icons/FavoriteIcon.svelte';
 
-  import type { Location } from './geocoding';
-  import toastService, { ToastType } from '../toast/toast.service';
-  import favoritesService from './favorites.service';
-  import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 
-  const TOAST_DURATION: number = 3000;
+	import type { Location } from '$lib/weather/geocoding';
+	import { ToastType, add as addToast } from '$lib/components/toast/toast.service';
+	import { add as addFavorite, remove, has } from './favorites.service';
 
-  export let location: Location;
-  let button: AsyncButton;
-  let isLoading: boolean;
-  let isFavorite: boolean;
+	const TOAST_DURATION: number = 3000;
 
-  const onFavorite = () => {
-    isLoading = true;
-    const ANIMATION_DURATION = button.getAnimationDuration();
+	export let location: Location;
+	let button: AsyncButton;
+	let isLoading: boolean;
+	let isFavorite: boolean;
 
-    if (isFavorite) {
-      favoritesService
-        .remove(location.id)
-        .then(() => {
-          toastService.add(
-            'Location removed from your favorites',
-            TOAST_DURATION,
-            ToastType.Warning
-          );
-        })
-        .catch((error: Error) =>
-          toastService.add(error.message, TOAST_DURATION, ToastType.Error)
-        )
-        .finally(() =>
-          setTimeout(() => {
-            isLoading = false;
-            updateFavorite();
-          }, ANIMATION_DURATION)
-        );
-    } else {
-      favoritesService
-        .add(location)
-        .then(() => {
-          toastService.add('Location added to your favorites', TOAST_DURATION);
-        })
-        .catch((error: Error) =>
-          toastService.add(error.message, TOAST_DURATION, ToastType.Error)
-        )
-        .finally(() =>
-          setTimeout(() => {
-            isLoading = false;
-            updateFavorite();
-          }, ANIMATION_DURATION)
-        );
-    }
-  };
-  const updateFavorite = () => {
-    favoritesService
-      .has(location.id)
-      .then(() => (isFavorite = true))
-      .catch(() => (isFavorite = false));
-  };
+	const onFavorite = () => {
+		isLoading = true;
+		const ANIMATION_DURATION = button.getAnimationDuration();
 
-  onMount(() => updateFavorite());
+		if (isFavorite) {
+			remove(location.id)
+				.then(() => {
+					addToast('Location removed from your favorites', TOAST_DURATION, ToastType.Warning);
+				})
+				.catch((error: Error) => addToast(error.message, TOAST_DURATION, ToastType.Error))
+				.finally(() =>
+					setTimeout(() => {
+						isLoading = false;
+						updateFavorite();
+					}, ANIMATION_DURATION)
+				);
+		} else {
+			addFavorite(location)
+				.then(() => {
+					addToast('Location added to your favorites', TOAST_DURATION);
+				})
+				.catch((error: Error) => addToast(error.message, TOAST_DURATION, ToastType.Error))
+				.finally(() =>
+					setTimeout(() => {
+						isLoading = false;
+						updateFavorite();
+					}, ANIMATION_DURATION)
+				);
+		}
+	};
+	const updateFavorite = () => {
+		has(location.id)
+			.then(() => (isFavorite = true))
+			.catch(() => (isFavorite = false));
+	};
+
+	onMount(() => updateFavorite());
 </script>
 
-<AsyncButton
-  loading={isLoading}
-  bind:this={button}
-  on:click={onFavorite}
->
-  {#if isFavorite}
-    <FavoriteFilledIcon />
-  {:else}
-    <FavoriteIcon />
-  {/if}
+<AsyncButton name={'Favorite'} loading={isLoading} bind:this={button} on:click={onFavorite}>
+	{#if isFavorite}
+		<FavoriteFilledIcon />
+	{:else}
+		<FavoriteIcon />
+	{/if}
 </AsyncButton>

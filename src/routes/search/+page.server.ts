@@ -18,5 +18,5 @@ export const load = (({ url }) =>
 
         get<Array<Location>>(searchURL.href)
             .then(locations => resolve({ locations }))
-            .catch(reason => reject(error(500, reason.message)));
+            .catch(reason => reject(error(404, reason.message)));
     })) satisfies PageServerLoad;

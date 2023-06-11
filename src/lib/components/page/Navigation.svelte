@@ -1,11 +1,14 @@
 <script lang="ts">
-	import CloseIcon from './icons/CloseIcon.svelte';
-	import SearchIcon from './icons/SearchIcon.svelte';
-	import FavoriteIcon from './icons/FavoriteIcon.svelte';
-	import LocationIcon from './icons/LocationIcon.svelte';
+	import CloseIcon from '$lib/components/icons/CloseIcon.svelte';
+	import SearchIcon from '$lib/components/icons/SearchIcon.svelte';
+	import FavoriteIcon from '$lib/components/icons/FavoriteIcon.svelte';
+	import LocationIcon from '$lib/components/icons/LocationIcon.svelte';
+	import Loading from '$lib/components/page/Loading.svelte';
+
+	import { goto } from '$app/navigation';
 
 	import { getGeolocation } from '$lib/utils';
-	import toastService, { ToastType } from '$lib/components/toast/toast.service';
+	import { ToastType, add } from '$lib/components/toast/toast.service';	
 
 	const CITY_INPUT_NAME = 'name';
 
@@ -17,21 +20,23 @@
 		cityInputNameField.value = '';
 		cityInputNameField.focus();
 	};
-	const onGeolocation = () => {
-		isGeolocationLoading = true;
-		getGeolocation()
-			.then((geolocation) => {
-				const params = new URLSearchParams({
-					latitude: geolocation.coords.latitude.toString(),
-					longitude: geolocation.coords.longitude.toString()
-				});
-				console.log(params);
-				// goto(`forecast?${params.toString()}`, { invalidateAll: true });
-				window.location.href = `forecast?${params.toString()}`;
-			})
-			.catch((reason) => toastService.add(reason, 1000, ToastType.Error))
-			.finally(() => (isGeolocationLoading = false));
-	};
+	const onGeolocation = (): Promise<void> =>
+		new Promise<void>((resolve, reject) => {
+			isGeolocationLoading = true;
+			getGeolocation()
+				.then((geolocation) => {
+					const params = new URLSearchParams({
+						latitude: geolocation.coords.latitude.toString(),
+						longitude: geolocation.coords.longitude.toString()
+					});
+					resolve(goto(`forecast?${params.toString()}`));
+				})
+				.catch((reason) => {
+					add(reason, 1000, ToastType.Error);
+					return reject(reason);
+				})
+				.finally(() => (isGeolocationLoading = false));
+		});
 </script>
 
 <nav>
@@ -86,9 +91,7 @@
 					<LocationIcon />
 				</figure>
 			{:else}
-				<figure
-					class="inline-block animate-spin after:inline-block after:h-6 after:w-6 after:rounded-full after:border-2 after:border-transparent after:border-t-slate-100"
-				/>
+				<Loading color="light" />
 			{/if}
 		</button>
 	</form>

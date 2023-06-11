@@ -1,11 +1,14 @@
 <script lang="ts">
 	import Footer from '$lib/components/page/Footer.svelte';
-	import Logo from '$lib/components/Logo.svelte';
-	import Navigation from '$lib/components/Navigation.svelte';
+	import Loading from '$lib/components/page/Loading.svelte';
+	import Navigation from '$lib/components/page/Navigation.svelte';
 	import Toaster from '$lib/components/toast/Toaster.svelte';
+	import Logo from '$lib/components/Logo.svelte';
 
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
 	import '../app.css';
+
+	$: isHome = $page.url.pathname === '/';
 </script>
 
 <svelte:head>
@@ -17,21 +20,32 @@
 </div>
 
 <div class="flex min-h-screen flex-col items-center justify-center px-4">
-	{#if $page.url.pathname === '/'}
+	{#if isHome}
 		<figure class="w-48">
 			<Logo />
 		</figure>
-		<h1 class="text-3xl mb-10">Brutal Weather</h1>
+		<h1 class="mb-10 text-3xl">Brutal Weather</h1>
 	{/if}
 
-	<div class="bold-shadow max-w-5xl overflow-hidden rounded-xl border-2 border-neutral-800">
-		<header class="border-b-2 border-neutral-800">
-			<Navigation />
-		</header>
+	<div class="cross-shadow rounded-xl bg-slate-100">
+		<div class="max-w-5xl overflow-hidden rounded-[inherit] border-2 border-neutral-800">
+			<header
+				class="data-[index=true]:border-0 border-b-2 border-neutral-800"
+				data-index={isHome && !$navigating}
+			>
+				<Navigation />
+			</header>
 
-		<main class="flex max-h-[24.5rem] w-full flex-col overflow-y-auto overflow-x-hidden">
-			<slot />
-		</main>
+			<main class="flex max-h-[24.5rem] w-full flex-col overflow-y-auto overflow-x-hidden">
+				{#if $navigating}
+					<div class="mx-auto p-4">
+						<Loading color="dark" />
+					</div>
+				{:else}
+					<slot />
+				{/if}
+			</main>
+		</div>
 	</div>
 </div>
 

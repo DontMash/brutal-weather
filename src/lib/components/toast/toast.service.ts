@@ -1,3 +1,5 @@
+import { writable, type Writable } from 'svelte/store';
+
 export enum ToastType {
     Info = 'Info',
     Warning = 'Warning',
@@ -9,40 +11,27 @@ export type Toast = {
     duration: number;
 };
 
-class ToastService extends EventTarget {
-    private queue: Array<Toast>;
-    private timeout: NodeJS.Timeout | undefined;
+const queue: Array<Toast> = new Array<Toast>();;
+const toastStore: Writable<Toast> = writable<Toast>();
+let timeout: NodeJS.Timeout | undefined;
 
-    constructor() {
-        super();
+export const subscribe: Writable<Toast>['subscribe'] = toastStore.subscribe;
+export const add = (message: string, duration: number = 1000, type: ToastType = ToastType.Info) => {
+    const toast: Toast = { type, message, duration };
+    queue.unshift(toast);
 
-        this.queue = new Array<Toast>();
+    if (!timeout)
+        pop();
+};
+const pop = () => {
+    const toast = queue.pop();
+    if (!toast) {
+        clearTimeout(timeout);
+        timeout = undefined;
+        return;
     }
 
-    add(message: string, duration: number = 1000, type: ToastType = ToastType.Info) {
-        const toast: Toast = { type, message, duration };
-        this.queue.unshift(toast);
-
-        if (!this.timeout)
-            this.pop();
-    }
-
-    private pop() {
-        const toast = this.queue.pop();
-        if (!toast) {
-            clearTimeout(this.timeout);
-            this.timeout = undefined;
-            return;
-        }
-
-        const event = new CustomEvent<Toast>('toast', {
-            detail: toast,
-        });
-        this.dispatchEvent(event);
-
-        this.timeout = setTimeout(() => this.pop(), toast.duration);
-    }
+    toastStore.update(() => toast);
+    timeout = setTimeout(() => pop(), toast.duration);
 }
 
-const toastService = new ToastService();
-export default toastService;

@@ -7,6 +7,7 @@
   const ANIMATION_DURATION: number = 300;
   const dispatch = createEventDispatcher();
 
+  export let name: string;
   export let color: Color = 'primary';
   export let loading: boolean = false;
 
@@ -17,7 +18,7 @@
   class="flex data-[loading=true]:pointer-events-none data-[loading=true]:animate-spin-fast"
   data-loading={loading}
 >
-  <Button {color} on:click={() => dispatch('click')}>
+  <Button {name} {color} on:click={() => dispatch('click')}>
     <slot>Button</slot>
   </Button>
 </div>
