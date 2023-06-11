@@ -1,78 +1,77 @@
 /* Variable Fonts */
 @supports (font-variation-settings: normal) {
-    @font-face {
-      font-family: "Rubik";
-      font-style: normal;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url("/fonts/Rubik/Rubik-VariableFont_wght.ttf") format("truetype");
-      font-named-instance: "Regular";
-    }
-  
-    @font-face {
-      font-family: "Rubik";
-      font-style: italic;
-      font-weight: 100 900;
-      font-display: swap;
-      src: url("/fonts/Rubik/Rubik-Italic-VariableFont_wght.ttf")
-        format("truetype");
-      font-named-instance: "Italic";
-    }
-  }
-  
-  /* Static Fonts */
-  @supports not (font-variation-settings: normal) {
-    @font-face {
-      font-named-instance: Regular;
-      font-display: swap;
-      font-family: Rubik;
-      font-style: normal;
-      font-weight: 400;
-      src: url("/fonts/Rubik/static/Rubik-Regular.ttf") format("truetype");
-    }
-  
-    @font-face {
-      font-named-instance: Italic;
-      font-display: swap;
-      font-family: Rubik;
-      font-style: italic;
-      font-weight: 100 900;
-      src: url("/fonts/Rubik/static/Rubik-Italic.ttf") format("truetype");
-    }
-  
-    @font-face {
-      font-named-instance: SemiBold;
-      font-display: swap;
-      font-family: Rubik;
-      font-style: semibold;
-      font-weight: 600;
-      src: url("/fonts/Rubik/static/Rubik-SemiBold.ttf") format("truetype");
-    }
-  
-    @font-face {
-      font-named-instance: SemiBoldItalic;
-      font-display: swap;
-      font-family: Rubik;
-      font-style: italic;
-      font-weight: 600;
-      src: url("/fonts/Rubik/static/Rubik-SemiBoldItalic.ttf") format("truetype");
-    }
-  
-    @font-face {
-      font-named-instance: Bold;
-      font-display: swap;
-      font-family: Rubik;
-      font-style: bold;
-      font-weight: 700;
-      src: url("/fonts/Rubik/static/Rubik-Bold.ttf") format("truetype");
-    }
-  
-    @font-face {
-      font-named-instance: BoldItalic;
-      font-display: swap;
-      font-family: Rubik;
-      font-style: italic;
-      font-weight: 700;
-      src: url("/fonts/Rubik/static/Rubik-BoldItalic.ttf") format("truetype");
-    }
-  }
+	@font-face {
+		font-family: 'Rubik';
+		font-style: normal;
+		font-weight: 100 900;
+		font-display: swap;
+		src: url('/fonts/Rubik/Rubik-VariableFont_wght.ttf') format('truetype');
+		font-named-instance: 'Regular';
+	}
+
+	@font-face {
+		font-family: 'Rubik';
+		font-style: italic;
+		font-weight: 100 900;
+		font-display: swap;
+		src: url('/fonts/Rubik/Rubik-Italic-VariableFont_wght.ttf') format('truetype');
+		font-named-instance: 'Italic';
+	}
+}
+
+/* Static Fonts */
+@supports not (font-variation-settings: normal) {
+	@font-face {
+		font-named-instance: Regular;
+		font-display: swap;
+		font-family: Rubik;
+		font-style: normal;
+		font-weight: 400;
+		src: url('/fonts/Rubik/static/Rubik-Regular.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-named-instance: Italic;
+		font-display: swap;
+		font-family: Rubik;
+		font-style: italic;
+		font-weight: 100 900;
+		src: url('/fonts/Rubik/static/Rubik-Italic.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-named-instance: SemiBold;
+		font-display: swap;
+		font-family: Rubik;
+		font-style: semibold;
+		font-weight: 600;
+		src: url('/fonts/Rubik/static/Rubik-SemiBold.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-named-instance: SemiBoldItalic;
+		font-display: swap;
+		font-family: Rubik;
+		font-style: italic;
+		font-weight: 600;
+		src: url('/fonts/Rubik/static/Rubik-SemiBoldItalic.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-named-instance: Bold;
+		font-display: swap;
+		font-family: Rubik;
+		font-style: bold;
+		font-weight: 700;
+		src: url('/fonts/Rubik/static/Rubik-Bold.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-named-instance: BoldItalic;
+		font-display: swap;
+		font-family: Rubik;
+		font-style: italic;
+		font-weight: 700;
+		src: url('/fonts/Rubik/static/Rubik-BoldItalic.ttf') format('truetype');
+	}
+}

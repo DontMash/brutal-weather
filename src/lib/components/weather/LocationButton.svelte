@@ -11,7 +11,7 @@
 	const getForecastURL = (location: Location): string => {
 		const forecastParams = new URLSearchParams({
 			id: location.id.toString(),
-			name: location.name,
+			name: location.name
 		});
 
 		return `forecast?${forecastParams.toString()}`;

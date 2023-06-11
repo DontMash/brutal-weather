@@ -15,7 +15,15 @@
 			"problemMatcher": [],
 			"label": "npm: test:unit",
 			"detail": "vitest",
-			"group": "build",
+			"group": "build"
+		},
+		{
+			"type": "npm",
+			"script": "storybook",
+			"problemMatcher": [],
+			"label": "npm: storybook",
+			"detail": "storybook dev -p 6006",
+			"group": "build"
 		}
 	]
 }

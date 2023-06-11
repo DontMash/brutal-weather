@@ -8,11 +8,10 @@
 	import { goto } from '$app/navigation';
 
 	import { getGeolocation } from '$lib/utils';
-	import { ToastType, add } from '$lib/components/toast/toast.service';	
+	import { ToastType, add } from '$lib/components/toast/toast.service';
 
 	const CITY_INPUT_NAME = 'name';
 
-	export let value: string = '';
 	let cityInputNameField: HTMLInputElement;
 	let isGeolocationLoading = false;
 
@@ -52,7 +51,6 @@
 				required
 				minlength="2"
 				bind:this={cityInputNameField}
-				bind:value
 			/>
 			<button
 				class="absolute right-0 top-1/2 block w-8 -translate-y-1/2 transition hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"

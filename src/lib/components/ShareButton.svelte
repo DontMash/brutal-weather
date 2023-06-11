@@ -4,7 +4,7 @@
 
 	import { ToastType, add } from '$lib/components/toast/toast.service';
 
-	const TOAST_DURATION: number = 3000;
+	const TOAST_DURATION = 3000;
 
 	let isLoading: boolean;
 	let button: AsyncButton;
@@ -20,7 +20,7 @@
 					add('Link copied', TOAST_DURATION);
 				}, ANIMATION_DURATION)
 			)
-			.catch((error) => {
+			.catch(() => {
 				setTimeout(() => {
 					add('Cannot copy link!', TOAST_DURATION, ToastType.Error);
 				}, ANIMATION_DURATION);

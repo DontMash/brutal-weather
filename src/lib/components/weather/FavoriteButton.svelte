@@ -9,7 +9,7 @@
 	import { ToastType, add as addToast } from '$lib/components/toast/toast.service';
 	import { add as addFavorite, remove, has } from './favorites.service';
 
-	const TOAST_DURATION: number = 3000;
+	const TOAST_DURATION = 3000;
 
 	export let location: Location;
 	let button: AsyncButton;

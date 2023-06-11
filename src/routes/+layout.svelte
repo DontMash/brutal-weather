@@ -30,7 +30,7 @@
 	<div class="cross-shadow rounded-xl bg-slate-100">
 		<div class="max-w-5xl overflow-hidden rounded-[inherit] border-2 border-neutral-800">
 			<header
-				class="data-[index=true]:border-0 border-b-2 border-neutral-800"
+				class="border-b-2 border-neutral-800 data-[index=true]:border-0"
 				data-index={isHome && !$navigating}
 			>
 				<Navigation />

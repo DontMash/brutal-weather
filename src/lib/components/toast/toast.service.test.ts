@@ -9,11 +9,10 @@ describe('ToastService', () => {
 		let unsubscribe: Unsubscriber;
 		let currentToast: Toast | undefined;
 		beforeAll(() => {
-			unsubscribe = subscribe(toast => currentToast = toast);
+			unsubscribe = subscribe((toast) => (currentToast = toast));
 		});
 		afterAll(() => {
-			if (!unsubscribe)
-				return;
+			if (!unsubscribe) return;
 			unsubscribe();
 		});
 		beforeEach(() => {
