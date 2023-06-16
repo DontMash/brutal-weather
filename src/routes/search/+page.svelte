@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SearchList from '$lib/components/weather/SearchList.svelte';
+	import LocationList from '$lib/components/weather/LocationList.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -11,6 +11,6 @@
 <section>
 	<h2 class="sr-only">Results</h2>
 	{#if locations}
-		<SearchList {locations} />
+		<LocationList {locations} />
 	{/if}
 </section>

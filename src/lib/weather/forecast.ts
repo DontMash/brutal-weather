@@ -1,5 +1,5 @@
 export type ForecastOptions = {
-	current_weather: boolean;
+	current_weather?: boolean;
 	hourly?: ForecastHourlyOptions;
 };
 type ForecastHourlyOptions = {
@@ -12,7 +12,7 @@ type ForecastHourlyOptions = {
 };
 
 export type Forecast = {
-	current_weather: Weather;
+	current_weather?: Weather;
 	elevation: Meter;
 	hourly?: HourlyWeather;
 	latitude: Degrees;
@@ -32,8 +32,8 @@ type Weather = {
  */
 type HourlyWeather = {
 	time: Array<DateTimeString>;
-	is_day: Array<Daytime>;
 	temperature_2m: Array<Celsius>;
+	is_day?: Array<Daytime>;
 	relativehumidity_2m?: Array<Percent>;
 	apparent_temperature?: Array<Celsius>;
 	precipitation?: Array<Millimeter>;
@@ -56,7 +56,7 @@ export enum Daytime {
  * WMO code
  */
 export type WeatherCode =
-	| 0
+	0
 	| 1
 	| 2
 	| 3

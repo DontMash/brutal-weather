@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Forecast from '$lib/components/weather/Forecast.svelte';
+	import Forecast from '$lib/components/weather/forecast/Forecast.svelte';
 
 	import type { PageData } from './$types';
 

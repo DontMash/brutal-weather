@@ -3,7 +3,7 @@
 	import SearchIcon from '$lib/components/icons/SearchIcon.svelte';
 	import FavoriteIcon from '$lib/components/icons/FavoriteIcon.svelte';
 	import LocationIcon from '$lib/components/icons/LocationIcon.svelte';
-	import Loading from '$lib/components/page/Loading.svelte';
+	import Loading from '$lib/components/Loading.svelte';
 
 	import { goto } from '$app/navigation';
 
@@ -63,7 +63,7 @@
 		</label>
 
 		<button
-			class="block w-16 flex-shrink-0 bg-amber-300 fill-neutral-800 p-3 transition-colors hover:bg-amber-400 focus:outline-none focus-visible:bg-amber-400 active:bg-amber-500"
+			class="block w-16 leading-none flex-shrink-0 bg-amber-300 fill-neutral-800 p-3 transition-colors hover:bg-amber-400 focus:outline-none focus-visible:bg-amber-400 active:bg-amber-500"
 			type="submit"
 			aria-label="Search for locations"
 		>
@@ -71,7 +71,7 @@
 		</button>
 
 		<a
-			class="block w-16 flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
+			class="block w-16 leading-none flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
 			href="favorites"
 			aria-label="Look at your favorite locations"
 		>
@@ -79,7 +79,7 @@
 		</a>
 
 		<button
-			class="block w-16 flex-shrink-0 bg-neutral-800 fill-slate-100 p-3 transition-colors hover:bg-neutral-700 focus:outline-none focus-visible:bg-neutral-700 active:bg-neutral-600"
+			class="block w-16 leading-none flex-shrink-0 bg-neutral-800 fill-slate-100 p-3 transition-colors hover:bg-neutral-700 focus:outline-none focus-visible:bg-neutral-700 active:bg-neutral-600"
 			type="button"
 			aria-label="Get weather forecast for your location"
 			on:click={() => onGeolocation()}

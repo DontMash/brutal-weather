@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ComponentType } from 'svelte';
+
 	import ClearWeatherIcon from '$lib/components/icons/weather/ClearWeatherIcon.svelte';
 	import CloudyWeatherIcon from '$lib/components/icons/weather/CloudyWeatherIcon.svelte';
 	import OvercastWeatherIcon from '$lib/components/icons/weather/OvercastWeatherIcon.svelte';
@@ -25,11 +26,10 @@
 	} from '$lib/weather/forecast';
 
 	export let code: WeatherCode;
-	export let daytime: Daytime = 1;
+	export let daytime = Daytime.Day;
 
 	$: status = getWeatherStatus(code);
-
-	const weatherVariants: Record<WeatherStatus, ComponentType> = {
+	$: weatherVariants = {
 		[WeatherStatus.Clear]: daytime === Daytime.Day ? ClearWeatherIcon : ClearNightWeatherIcon,
 		[WeatherStatus.Cloudy]: daytime === Daytime.Day ? CloudyWeatherIcon : CloudyNightWeatherIcon,
 		[WeatherStatus.Overcast]: OvercastWeatherIcon,
@@ -44,9 +44,7 @@
 		[WeatherStatus.SnowShower]: SnowShowerWeatherIcon,
 		[WeatherStatus.Thunderstorm]: ThunderstormWeatherIcon,
 		[WeatherStatus.ThunderstormHail]: ThunderstormHailWeatherIcon
-	};
+	} satisfies Record<WeatherStatus, ComponentType>;
 </script>
 
-<figure>
-	<svelte:component this={weatherVariants[status]} />
-</figure>
+<svelte:component this={weatherVariants[status]} />

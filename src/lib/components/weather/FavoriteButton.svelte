@@ -55,7 +55,7 @@
 	onMount(() => updateFavorite());
 </script>
 
-<AsyncButton name={'Favorite'} loading={isLoading} bind:this={button} on:click={onFavorite}>
+<AsyncButton label="Favorite" size="square" loading={isLoading} bind:this={button} on:click={onFavorite}>
 	{#if isFavorite}
 		<FavoriteFilledIcon />
 	{:else}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ToastType } from './toast.service';
+	import { ToastType } from '$lib/components/toast/toast.service';
 
 	export let type: ToastType = ToastType.Info;
 
@@ -11,7 +11,7 @@
 </script>
 
 <span
-	class={`${typeVariations[type]} cross-shadow block select-none rounded-2xl border-2 border-neutral-800 px-3 py-2 text-center`}
+	class={`${typeVariations[type]} cross-shadow inline-block select-none rounded-2xl border-2 border-neutral-800 px-3 py-2 text-center`}
 >
 	<slot>Placeholder</slot>
 </span>

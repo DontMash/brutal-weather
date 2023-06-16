@@ -1,6 +1,6 @@
 <script lang="ts">
 	import CircleFlag from '$lib/components/CircleFlag.svelte';
-	import LocationTitle from './LocationTitle.svelte';
+	import LocationTitle from '$lib/components/weather/LocationTitle.svelte';
 
 	import type { Location } from '$lib/weather/geocoding';
 

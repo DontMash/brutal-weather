@@ -40,7 +40,7 @@ export const load = (({ url }) =>
 			forecastURL.searchParams.set('latitude', latitude);
 			forecastURL.searchParams.set('longitude', longitude);
 			const location: Partial<Location> = {
-				name: 'Your location',
+				name: 'This location',
 				latitude: +latitude,
 				longitude: +longitude
 			};

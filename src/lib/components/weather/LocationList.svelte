@@ -6,7 +6,7 @@
 	export let locations: Array<Location>;
 </script>
 
-<ul class="divide-y-2 divide-neutral-800 border-b-2 border-neutral-800">
+<ul class="divide-y-2 divide-neutral-800">
 	{#each locations as location}
 		<li>
 			<LocationButton {location} />

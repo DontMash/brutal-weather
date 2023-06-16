@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Footer from '$lib/components/page/Footer.svelte';
-	import Loading from '$lib/components/page/Loading.svelte';
+	import Loading from '$lib/components/Loading.svelte';
 	import Navigation from '$lib/components/page/Navigation.svelte';
 	import Toaster from '$lib/components/toast/Toaster.svelte';
 	import Logo from '$lib/components/Logo.svelte';
