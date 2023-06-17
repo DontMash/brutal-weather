@@ -39,11 +39,14 @@
 </script>
 
 <nav>
-	<form class="flex w-full divide-x-2 divide-neutral-800" method="GET" action="search">
-		<label class="group relative grow" for={CITY_INPUT_NAME}>
+	<form class="flex divide-x-2 divide-neutral-800" method="GET" action="search">
+		<label
+			class="relative min-w-[calc(100%_-_3_*_theme(width.16))] transition-all focus-within:min-w-[calc(100%_-_theme(width.16))] focus-within:delay-300 hover:min-w-[calc(100%_-_theme(width.16))] hover:delay-300"
+			for={CITY_INPUT_NAME}
+		>
 			<span class="sr-only block text-xs">City</span>
 			<input
-				class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 placeholder:transition hover:bg-slate-200 hover:placeholder:text-slate-400 focus:bg-slate-200 focus:outline-none"
+				class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 placeholder:transition hover:bg-slate-200 hover:delay-300 hover:placeholder:text-slate-400 hover:placeholder:delay-300 focus:bg-slate-200 focus:outline-none focus:delay-300 focus:placeholder:text-slate-400"
 				name={CITY_INPUT_NAME}
 				type="text"
 				placeholder="City..."
@@ -63,7 +66,7 @@
 		</label>
 
 		<button
-			class="block w-16 leading-none flex-shrink-0 bg-amber-300 fill-neutral-800 p-3 transition-colors hover:bg-amber-400 focus:outline-none focus-visible:bg-amber-400 active:bg-amber-500"
+			class="block w-16 flex-shrink-0 bg-amber-300 fill-neutral-800 p-3 leading-none transition-colors hover:bg-amber-400 focus:outline-none focus-visible:bg-amber-400 active:bg-amber-500"
 			type="submit"
 			aria-label="Search for locations"
 		>
@@ -71,7 +74,7 @@
 		</button>
 
 		<a
-			class="block w-16 leading-none flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
+			class="block w-16 flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 leading-none transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
 			href="favorites"
 			aria-label="Look at your favorite locations"
 		>
@@ -79,7 +82,7 @@
 		</a>
 
 		<button
-			class="block w-16 leading-none flex-shrink-0 bg-neutral-800 fill-slate-100 p-3 transition-colors hover:bg-neutral-700 focus:outline-none focus-visible:bg-neutral-700 active:bg-neutral-600"
+			class="block w-16 flex-shrink-0 bg-neutral-800 fill-slate-100 p-3 leading-none transition-colors hover:bg-neutral-700 focus:outline-none focus-visible:bg-neutral-700 active:bg-neutral-600"
 			type="button"
 			aria-label="Get weather forecast for your location"
 			on:click={() => onGeolocation()}
