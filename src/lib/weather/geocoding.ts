@@ -3,7 +3,7 @@ export type Location = {
 	name: string;
 	latitude: number;
 	longitude: number;
-	country: string;
+	country?: string;
 	country_code: string;
 	admin1?: string | undefined;
 	admin2?: string | undefined;

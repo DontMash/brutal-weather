@@ -15,12 +15,10 @@
 	});
 </script>
 
-<div>
-	{#if currentToast}
-		<figure transition:fly={{ y: -100, duration: TOAST_TRANSITION_DURATION }}>
-			<ToastComponent type={currentToast.type}>
-				{currentToast.message}
-			</ToastComponent>
-		</figure>
-	{/if}
-</div>
+{#if currentToast}
+	<figure transition:fly={{ y: -100, duration: TOAST_TRANSITION_DURATION }}>
+		<ToastComponent type={currentToast.type}>
+			{currentToast.message}
+		</ToastComponent>
+	</figure>
+{/if}

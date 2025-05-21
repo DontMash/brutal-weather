@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let country: string;
+	export let country: string | undefined;
 	export let country_code: string;
 </script>
 

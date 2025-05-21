@@ -28,7 +28,7 @@
 						latitude: geolocation.coords.latitude.toString(),
 						longitude: geolocation.coords.longitude.toString()
 					});
-					resolve(goto(`forecast?${params.toString()}`));
+					resolve(goto(`/forecast/current?${params.toString()}`));
 				})
 				.catch((reason) => {
 					add(reason, 1000, ToastType.Error);
@@ -39,14 +39,14 @@
 </script>
 
 <nav>
-	<form class="flex divide-x-2 divide-neutral-800" method="GET" action="search">
+	<form class="flex divide-x-2 divide-neutral-800" method="GET" action="/search">
 		<label
-			class="relative min-w-[calc(100%_-_3_*_theme(width.16))] transition-all focus-within:min-w-[calc(100%_-_theme(width.16))] focus-within:delay-300 hover:min-w-[calc(100%_-_theme(width.16))] hover:delay-300"
+			class="relative min-w-[calc(100%_-_3_*_theme(width.16))] transition-all focus-within:min-w-[calc(100%_-_theme(width.16))] hover:min-w-[calc(100%_-_theme(width.16))] focus-within:delay-0 hover:delay-300"
 			for={CITY_INPUT_NAME}
 		>
 			<span class="sr-only block text-xs">City</span>
 			<input
-				class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 placeholder:transition hover:bg-slate-200 hover:delay-300 hover:placeholder:text-slate-400 hover:placeholder:delay-300 focus:bg-slate-200 focus:outline-none focus:delay-300 focus:placeholder:text-slate-400"
+				class="peer block h-full w-full bg-slate-100 py-1 pl-2 pr-8 text-2xl transition-all placeholder:select-none placeholder:text-neutral-800 placeholder:transition hover:bg-slate-200 hover:delay-300 hover:placeholder:text-slate-400 hover:placeholder:delay-300 focus:bg-slate-200 focus:outline-none focus:placeholder:text-slate-400"
 				name={CITY_INPUT_NAME}
 				type="text"
 				placeholder="City..."
@@ -75,7 +75,7 @@
 
 		<a
 			class="block w-16 flex-shrink-0 bg-sky-300 fill-neutral-800 p-3 leading-none transition-colors hover:bg-sky-400 focus:outline-none focus-visible:bg-sky-400 active:bg-sky-500"
-			href="favorites"
+			href="/favorites"
 			aria-label="Look at your favorite locations"
 		>
 			<FavoriteIcon />

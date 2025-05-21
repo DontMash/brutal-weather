@@ -8,7 +8,9 @@
 	<slot name="before-name" />{location.name}
 </span>
 <small class="text-sm leading-none">
-	{location.country}
+	{#if location.country}
+		{location.country}
+	{/if}
 	{#if location.admin1}
 		- {location.admin1}
 	{/if}

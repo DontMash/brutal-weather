@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from '../$types';
 
 import { get } from '$lib/utils';
 import type { Forecast } from '$lib/weather/forecast';
@@ -23,6 +23,7 @@ export const load = (({ url }) =>
 			const searchURL = new URL(API_SEARCH_PATH, url.origin);
 			searchURL.searchParams.set('id', id);
 			searchURL.searchParams.set('name', name);
+			
 			get<Array<Location>>(searchURL.href)
 				.then((locations) => {
 					const location = locations.find((location) => location.id === +id);

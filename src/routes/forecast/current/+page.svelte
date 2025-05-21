@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Forecast from '$lib/components/weather/forecast/Forecast.svelte';
 
-	import type { PageData } from './$types';
+	import type { PageData } from '../$types';
 
 	export let data: PageData;
 

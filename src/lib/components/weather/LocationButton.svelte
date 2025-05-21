@@ -14,7 +14,7 @@
 			name: location.name
 		});
 
-		return `forecast?${forecastParams.toString()}`;
+		return `/forecast/current?${forecastParams.toString()}`;
 	};
 </script>
 
