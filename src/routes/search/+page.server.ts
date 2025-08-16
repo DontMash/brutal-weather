@@ -1,14 +1,14 @@
 import type { PageServerLoad } from './$types';
 
+import { error } from '@sveltejs/kit';
 import { get } from '$lib/utils';
 import type { Location } from '$lib/weather/geocoding';
-import { error } from '@sveltejs/kit';
 
 const API_PATH = 'api/v1';
 const API_SEARCH_PATH = API_PATH + '/search';
 
-export const load = (({ url }) =>
-	new Promise((resolve, reject) => {
+export const load = (async ({ url }) => {
+	try {
 		const name = url.searchParams.get('name') ?? '';
 		const limit = url.searchParams.get('limit') ?? String(100);
 
@@ -16,7 +16,13 @@ export const load = (({ url }) =>
 		searchURL.searchParams.set('name', name);
 		searchURL.searchParams.set('limit', limit);
 
-		get<Array<Location>>(searchURL.href)
-			.then((locations) => resolve({ locations }))
-			.catch((reason) => reject(error(404, reason.message)));
-	})) satisfies PageServerLoad;
+		const locations = await get<Array<Location>>(searchURL.href);
+		return { locations };
+	} catch (err) {
+		if (err instanceof Error) {
+			error(404, err.message);
+		}
+		console.error('Unknown error', err, typeof err);
+		return undefined;
+	}
+}) satisfies PageServerLoad;

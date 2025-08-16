@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import { getForecast } from '$lib/server/forecast.service';
-import type { RequestHandler } from '../$types';
+import type { RequestHandler } from './$types';
 
 export const GET = (({ url }) =>
 	new Promise<Response>((resolve, reject) => {

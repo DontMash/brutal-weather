@@ -1,6 +1,7 @@
 <script lang="ts">
-	import LocationList from '$lib/components/weather/LocationList.svelte';
 	import type { PageData } from './$types';
+
+	import LocationList from '$lib/components/weather/LocationList.svelte';
 
 	export let data: PageData;
 
