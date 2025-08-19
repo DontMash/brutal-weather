@@ -1,14 +1,13 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
-
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
+	
 	import Footer from '$lib/components/page/Footer.svelte';
+
+	const { Story } = defineMeta({
+		title: 'Components/Page/Footer',
+		component: Footer
+	});
 </script>
-
-<Meta title="Components/Page/Footer" component={Footer} />
-
-<Template>
-	<Footer />
-</Template>
 
 <Story name="Default">
 	<Footer />

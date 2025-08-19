@@ -1,9 +1,12 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import Forecast from '$lib/components/weather/forecast/Forecast.svelte';
 
-	import type { PageData } from '../$types';
+	interface Props {
+		data: PageData;
+	}
 
-	export let data: PageData;
+	let { data }: Props = $props();
 
 	const { forecast, location } = data;
 </script>

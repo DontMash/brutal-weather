@@ -1,21 +1,22 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Logo from '$lib/components/Logo.svelte';
+
+	const { Story } = defineMeta({
+		title: 'Components/Logo',
+		component: Logo
+	});
 </script>
-
-<Meta title="Components/Logo" component={Logo} />
-
-<Template>
-	<Logo />
-</Template>
 
 <Story name="Default">
 	<Logo />
 </Story>
 
 <Story name="Sized">
-	<figure class="w-48">
-		<Logo />
-	</figure>
+	{#snippet template()}
+		<figure class="w-48">
+			<Logo />
+		</figure>
+	{/snippet}
 </Story>

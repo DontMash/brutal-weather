@@ -8,15 +8,20 @@
 	import type { Forecast } from '$lib/weather/forecast';
 	import type { Location } from '$lib/weather/geocoding';
 
-	export let forecast: Forecast;
-	export let location: Partial<Location>;
+	interface Props {
+		forecast: Forecast;
+		location: Partial<Location>;
+	}
 
-	$: validLocation = location as Location;
+	let { forecast, location }: Props = $props();
+
+	let validLocation = $derived(location as Location);
 </script>
 
 <article class="flex h-full flex-col items-center divide-y-2 divide-neutral-800">
 	<CurrentForecast {forecast} />
 	<!-- <DayForecast {forecast} /> -->
+
 	<div class="flex w-full divide-x-2 divide-neutral-800 bg-sky-300 text-neutral-800">
 		<div class="flex grow items-center p-2">
 			<h2 class="flex flex-col space-y-1 text-2xl">

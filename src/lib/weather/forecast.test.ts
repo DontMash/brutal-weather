@@ -77,8 +77,8 @@ describe('Forecast-Utils', () => {
 			value <= COLD_TEMPERATURE_CELSIUS
 				? 'cold'
 				: value >= HOT_TEMPERATURE_CELSIUS
-				? 'hot'
-				: 'normal';
+					? 'hot'
+					: 'normal';
 
 		it('should return cold', () => {
 			const status = getTemperatureStatus(0);

@@ -1,16 +1,27 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import CurrentForecast from '$lib/components/weather/forecast/CurrentForecast.svelte';
 	import { mockCurrentForecast } from '../../../mock';
+
+	const { Story } = defineMeta({
+		title: 'Components/Weather/Forecast/CurrentForecast',
+		component: CurrentForecast,
+		argTypes: {
+			forecast: {
+				control: 'object',
+				name: 'Forecast',
+				description: 'An object defining the values of the current forecast.'
+			}
+		},
+		args: {
+			forecast: mockCurrentForecast
+		}
+	});
 </script>
 
-<Meta title="Components/Weather/Forecast/CurrentForecast" component={CurrentForecast} />
-
-<Template>
-	<CurrentForecast forecast={mockCurrentForecast} />
-</Template>
-
 <Story name="Default">
-	<CurrentForecast forecast={mockCurrentForecast} />
+	{#snippet template(args)}
+		<CurrentForecast {...args} />
+	{/snippet}
 </Story>

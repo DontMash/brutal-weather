@@ -3,7 +3,11 @@
 
 	import type { Location } from '$lib/weather/geocoding';
 
-	export let locations: Array<Location>;
+	interface Props {
+		locations: Array<Location>;
+	}
+
+	let { locations }: Props = $props();
 </script>
 
 <ul class="divide-y-2 divide-neutral-800">

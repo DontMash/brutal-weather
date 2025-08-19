@@ -2,21 +2,26 @@
 	import AsyncButton from '$lib/components/AsyncButton.svelte';
 	import FavoriteFilledIcon from '$lib/components/icons/FavoriteFilledIcon.svelte';
 	import FavoriteIcon from '$lib/components/icons/FavoriteIcon.svelte';
-
-	import { onMount } from 'svelte';
-
 	import type { Location } from '$lib/weather/geocoding';
 	import { ToastType, add as addToast } from '$lib/components/toast/toast.service';
 	import { add as addFavorite, remove, has } from './favorites.service';
 
 	const TOAST_DURATION = 3000;
 
-	export let location: Location;
-	let button: AsyncButton;
-	let isLoading: boolean;
-	let isFavorite: boolean;
+	interface Props {
+		location: Location;
+	}
 
-	const onFavorite = () => {
+	let { location }: Props = $props();
+	let button: AsyncButton | undefined = $state();
+	let isLoading: boolean = $state(false);
+	let isFavorite: boolean = $state(false);
+
+	const onclick = () => {
+		if (!button) {
+			return addToast('Error: No button provided!', TOAST_DURATION, ToastType.Error);
+		}
+
 		isLoading = true;
 		const ANIMATION_DURATION = button.getAnimationDuration();
 
@@ -52,10 +57,10 @@
 			.catch(() => (isFavorite = false));
 	};
 
-	onMount(() => updateFavorite());
+	$effect(() => updateFavorite());
 </script>
 
-<AsyncButton label="Favorite" size="square" loading={isLoading} bind:this={button} on:click={onFavorite}>
+<AsyncButton label="Favorite" size="square" loading={isLoading} bind:this={button} {onclick}>
 	{#if isFavorite}
 		<FavoriteFilledIcon />
 	{:else}

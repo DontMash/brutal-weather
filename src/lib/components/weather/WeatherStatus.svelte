@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte';
-
 	import ClearWeatherIcon from '$lib/components/icons/weather/ClearWeatherIcon.svelte';
 	import CloudyWeatherIcon from '$lib/components/icons/weather/CloudyWeatherIcon.svelte';
 	import OvercastWeatherIcon from '$lib/components/icons/weather/OvercastWeatherIcon.svelte';
@@ -25,26 +23,48 @@
 		Daytime
 	} from '$lib/weather/forecast';
 
-	export let code: WeatherCode;
-	export let daytime = Daytime.Day;
+	interface Props {
+		code: WeatherCode;
+		daytime?: Daytime;
+	}
 
-	$: status = getWeatherStatus(code);
-	$: weatherVariants = {
-		[WeatherStatus.Clear]: daytime === Daytime.Day ? ClearWeatherIcon : ClearNightWeatherIcon,
-		[WeatherStatus.Cloudy]: daytime === Daytime.Day ? CloudyWeatherIcon : CloudyNightWeatherIcon,
-		[WeatherStatus.Overcast]: OvercastWeatherIcon,
-		[WeatherStatus.Foggy]: FoggyWeatherIcon,
-		[WeatherStatus.Drizzle]: DrizzleWeatherIcon,
-		[WeatherStatus.FreezingDrizzle]: FreezingDrizzleWeatherIcon,
-		[WeatherStatus.Rain]: RainWeatherIcon,
-		[WeatherStatus.FreezingRain]: FreezingRainWeatherIcon,
-		[WeatherStatus.SnowFall]: SnowFallWeatherIcon,
-		[WeatherStatus.SnowGrains]: SnowGrainsWeatherIcon,
-		[WeatherStatus.RainShower]: RainShowerWeatherIcon,
-		[WeatherStatus.SnowShower]: SnowShowerWeatherIcon,
-		[WeatherStatus.Thunderstorm]: ThunderstormWeatherIcon,
-		[WeatherStatus.ThunderstormHail]: ThunderstormHailWeatherIcon
-	} satisfies Record<WeatherStatus, ComponentType>;
+	let { code, daytime = Daytime.Day }: Props = $props();
+
+	const getWeatherIcon = (status: WeatherStatus, daytime: Daytime) => {
+		switch (status) {
+			case WeatherStatus.Clear:
+				return daytime === Daytime.Day ? ClearWeatherIcon : ClearNightWeatherIcon;
+			case WeatherStatus.Cloudy:
+				daytime === Daytime.Day ? CloudyWeatherIcon : CloudyNightWeatherIcon;
+			case WeatherStatus.Overcast:
+				return OvercastWeatherIcon;
+			case WeatherStatus.Foggy:
+				return FoggyWeatherIcon;
+			case WeatherStatus.Drizzle:
+				return DrizzleWeatherIcon;
+			case WeatherStatus.FreezingDrizzle:
+				return FreezingDrizzleWeatherIcon;
+			case WeatherStatus.Rain:
+				return RainWeatherIcon;
+			case WeatherStatus.FreezingRain:
+				return FreezingRainWeatherIcon;
+			case WeatherStatus.SnowFall:
+				return SnowFallWeatherIcon;
+			case WeatherStatus.SnowGrains:
+				return SnowGrainsWeatherIcon;
+			case WeatherStatus.RainShower:
+				return RainShowerWeatherIcon;
+			case WeatherStatus.SnowShower:
+				return SnowShowerWeatherIcon;
+			case WeatherStatus.Thunderstorm:
+				return ThunderstormWeatherIcon;
+			case WeatherStatus.ThunderstormHail:
+				return ThunderstormHailWeatherIcon;
+		}
+	};
+
+	const status = $derived(getWeatherStatus(code));
+	const StatusComponent = $derived(getWeatherIcon(status, daytime));
 </script>
 
-<svelte:component this={weatherVariants[status]} />
+<StatusComponent />

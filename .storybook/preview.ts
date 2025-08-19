@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/svelte';
+import type { Preview } from '@storybook/sveltekit';
 import '/src/app.css';
 
 const preview: Preview = {
@@ -9,7 +9,7 @@ const preview: Preview = {
 				color: /(background|color)$/i,
 				date: /Date$/
 			}
-		},
+		}
 	}
 };
 

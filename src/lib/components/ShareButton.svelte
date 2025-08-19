@@ -6,10 +6,14 @@
 
 	const TOAST_DURATION = 3000;
 
-	let isLoading: boolean;
-	let button: AsyncButton;
+	let isLoading: boolean = $state(false);
+	let button: AsyncButton | undefined = $state();
 
-	const onShare = () => {
+	const onclick = () => {
+		if (!button) {
+			return add('Error: No button provided!', TOAST_DURATION, ToastType.Error);
+		}
+
 		isLoading = true;
 		const ANIMATION_DURATION = button.getAnimationDuration();
 
@@ -31,6 +35,6 @@
 	};
 </script>
 
-<AsyncButton label="Share" size="square" loading={isLoading} bind:this={button} on:click={onShare}>
+<AsyncButton label="Share" size="square" loading={isLoading} bind:this={button} {onclick}>
 	<ShareIcon />
 </AsyncButton>

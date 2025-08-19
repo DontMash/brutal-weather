@@ -1,6 +1,10 @@
 <script lang="ts">
-	export let title = 'Error';
-	export let message: string;
+	interface Props {
+		title?: string;
+		message: string;
+	}
+
+	let { title = 'Error', message }: Props = $props();
 </script>
 
 <div class="flex h-16 items-center justify-center space-x-2 p-4 text-red-400">

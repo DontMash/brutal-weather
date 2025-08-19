@@ -1,14 +1,13 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Navigation from '$lib/components/page/Navigation.svelte';
+
+	const { Story } = defineMeta({
+		title: 'Components/Page/Navigation',
+		component: Navigation
+	});
 </script>
-
-<Meta title="Components/Page/Navigation" component={Navigation} />
-
-<Template>
-	<Navigation />
-</Template>
 
 <Story name="Default">
 	<Navigation />

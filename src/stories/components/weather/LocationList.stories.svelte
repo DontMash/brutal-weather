@@ -1,16 +1,28 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import LocationList from '$lib/components/weather/LocationList.svelte';
 	import { mockLocations } from '../../mock';
+
+	const { Story } = defineMeta({
+		title: 'Components/Weather/LocationList',
+		component: LocationList,
+		argTypes: {
+			locations: {
+				control: 'object',
+				name: 'Location',
+				description: 'An object defining the location to be selected.',
+				defaultValue: location
+			}
+		},
+		args: {
+			locations: mockLocations
+		}
+	});
 </script>
 
-<Meta title="Components/Weather/LocationList" component={LocationList} />
-
-<Template>
-	<LocationList locations={mockLocations} />
-</Template>
-
 <Story name="Default">
-	<LocationList locations={mockLocations} />
+	{#snippet template(args)}
+		<LocationList {...args} />
+	{/snippet}
 </Story>

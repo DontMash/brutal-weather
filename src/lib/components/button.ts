@@ -1,2 +1,2 @@
 export type Color = 'primary' | 'secondary';
-export type Size = 'square' | 'medium'
+export type Size = 'square' | 'medium';

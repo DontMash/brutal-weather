@@ -3,7 +3,11 @@
 
 	import LocationList from '$lib/components/weather/LocationList.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	const { locations } = data;
 </script>

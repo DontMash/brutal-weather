@@ -23,7 +23,7 @@ export const load = (({ url }) =>
 			const searchURL = new URL(API_SEARCH_PATH, url.origin);
 			searchURL.searchParams.set('id', id);
 			searchURL.searchParams.set('name', name);
-			
+
 			get<Array<Location>>(searchURL.href)
 				.then((locations) => {
 					const location = locations.find((location) => location.id === +id);

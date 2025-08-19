@@ -5,7 +5,7 @@
 	import { subscribe, type Toast } from './toast.service';
 
 	const TOAST_TRANSITION_DURATION = 300;
-	let currentToast: Toast | undefined;
+	let currentToast: Toast | undefined = $state();
 
 	subscribe((toast) => {
 		if (!toast) return;

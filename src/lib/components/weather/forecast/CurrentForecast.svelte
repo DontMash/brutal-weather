@@ -8,10 +8,16 @@
 		type TemperatureStatus
 	} from '$lib/weather/forecast';
 
-	export let forecast: Forecast;
+	interface Props {
+		forecast: Forecast;
+	}
 
-	$: forecastDate = new Date(forecast.current_weather ? forecast.current_weather.time : Date.now());
-	$: forecastDateString = forecastDate.toLocaleString().slice(0, -3);
+	let { forecast }: Props = $props();
+
+	let forecastDate = $derived(
+		new Date(forecast.current_weather ? forecast.current_weather.time : Date.now())
+	);
+	let forecastDateString = $derived(forecastDate.toLocaleString().slice(0, -3));
 
 	const tempVariants: Record<TemperatureStatus, string> = {
 		cold: 'bold-drop-shadow drop-shadow-sky',
@@ -21,7 +27,7 @@
 </script>
 
 {#if forecast.current_weather}
-	<figure class="divide-y-2 w-full grow divide-neutral-800">
+	<figure class="w-full grow divide-y-2 divide-neutral-800">
 		<div class="flex flex-col items-center justify-center space-y-2 p-2 text-center">
 			<strong
 				class={`${

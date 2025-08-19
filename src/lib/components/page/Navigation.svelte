@@ -12,10 +12,13 @@
 
 	const CITY_INPUT_NAME = 'name';
 
-	let cityInputNameField: HTMLInputElement;
-	let isGeolocationLoading = false;
+	let cityInputNameField: HTMLInputElement | undefined = $state();
+	let isGeolocationLoading = $state(false);
 
 	const onClear = () => {
+		if (!cityInputNameField) {
+			return;
+		}
 		cityInputNameField.value = '';
 		cityInputNameField.focus();
 	};
@@ -41,7 +44,7 @@
 <nav>
 	<form class="flex divide-x-2 divide-neutral-800" method="GET" action="/search">
 		<label
-			class="relative min-w-[calc(100%_-_3_*_theme(width.16))] transition-all focus-within:min-w-[calc(100%_-_theme(width.16))] hover:min-w-[calc(100%_-_theme(width.16))] focus-within:delay-0 hover:delay-300"
+			class="relative min-w-[calc(100%_-_3_*_theme(width.16))] transition-all focus-within:min-w-[calc(100%_-_theme(width.16))] focus-within:delay-0 hover:min-w-[calc(100%_-_theme(width.16))] hover:delay-300"
 			for={CITY_INPUT_NAME}
 		>
 			<span class="sr-only block text-xs">City</span>
@@ -50,7 +53,7 @@
 				name={CITY_INPUT_NAME}
 				type="text"
 				placeholder="City..."
-				autocorrect="true"
+				autocorrect="on"
 				required
 				minlength="2"
 				bind:this={cityInputNameField}
@@ -59,7 +62,7 @@
 				class="absolute right-0 top-1/2 block w-8 -translate-y-1/2 transition hover:fill-slate-400 focus:fill-slate-400 focus:outline-none peer-placeholder-shown:hidden"
 				type="button"
 				aria-label="Clear search input"
-				on:click={() => onClear()}
+				onclick={() => onClear()}
 			>
 				<CloseIcon />
 			</button>
@@ -85,7 +88,7 @@
 			class="block w-16 flex-shrink-0 bg-neutral-800 fill-slate-100 p-3 leading-none transition-colors hover:bg-neutral-700 focus:outline-none focus-visible:bg-neutral-700 active:bg-neutral-600"
 			type="button"
 			aria-label="Get weather forecast for your location"
-			on:click={() => onGeolocation()}
+			onclick={() => onGeolocation()}
 		>
 			{#if !isGeolocationLoading}
 				<figure>

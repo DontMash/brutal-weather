@@ -1,63 +1,70 @@
-<script lang="ts">
-	import type { ArgTypes } from '@storybook/svelte';
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Button from '$lib/components/Button.svelte';
 	import ShareIcon from '$lib/components/icons/ShareIcon.svelte';
 
-	const defaultArgTypes: ArgTypes = {
-		label: {
-			type: 'string',
-			control: 'text',
-			defaultValue: 'Button',
-			description: 'Label of the button for accessibility'
+	const { Story } = defineMeta({
+		title: 'Components/Buttons/Button',
+		component: Button,
+		argTypes: {
+			label: {
+				type: 'string',
+				control: 'text',
+				defaultValue: 'Button',
+				description: 'Label of the button for accessibility'
+			},
+			color: {
+				type: 'string',
+				options: ['primary', 'secondary'],
+				control: 'select',
+				defaultValue: 'primary',
+				description: 'Background color on hover'
+			},
+			size: {
+				type: 'string',
+				options: ['square', 'medium'],
+				control: 'radio',
+				defaultValue: 'square',
+				description: 'Size of the button'
+			}
 		},
-		color: {
-			type: 'string',
-			options: ['primary', 'secondary'],
-			control: 'select',
-			defaultValue: 'primary',
-			description: 'Background color on hover'
-		},
-		size: {
-			type: 'string',
-			options: ['square', 'medium'],
-			control: 'radio',
-			defaultValue: 'square',
-			description: 'Size of the button'
+		args: {
+			label: 'Button',
+			color: 'primary',
+			size: 'medium'
 		}
-	};
-	const defaultArgs: Partial<any> = {
-		label: 'Button',
-		color: 'primary',
-		size: 'medium'
-	};
+	});
 </script>
 
-<Meta title="Components/Buttons/Button" component={Button} argTypes={defaultArgTypes} args={defaultArgs} />
-
-<Template let:args>
-	<Button {...args} />
-</Template>
-
-<Story name="Default" let:args>
-	<Button label="Button" {...args} />
+<Story name="Default">
+	{#snippet template({ children, ...args })}
+		<Button {...args}>Default</Button>
+	{/snippet}
 </Story>
 
-<Story name="Primary" let:args args={{ ...defaultArgs, color: 'primary' }}>
-	<Button {...args} />
+<Story name="Primary" args={{ color: 'primary' }}>
+	{#snippet template({ children, ...args })}
+		<Button {...args}>Primary</Button>
+	{/snippet}
 </Story>
 
-<Story name="Secondary" let:args args={{ ...defaultArgs, color: 'secondary' }}>
-	<Button {...args} />
+<Story name="Secondary" args={{ color: 'secondary' }}>
+	{#snippet template({ children, ...args })}
+		<Button {...args}>Secondary</Button>
+	{/snippet}
 </Story>
 
-<Story name="Square" let:args args={{ ...defaultArgs, size: 'square' }}>
-	<Button {...args}>
-		<ShareIcon />
-	</Button>
+<Story name="Square" args={{ size: 'square' }}>
+	{#snippet template({ children, ...args })}
+		<Button {...args}>
+			<ShareIcon />
+		</Button>
+	{/snippet}
 </Story>
 
-<Story name="Medium" let:args args={{ ...defaultArgs, size: 'medium' }}>
-	<Button {...args} />
+<Story name="Medium" args={{ size: 'medium' }}>
+	{#snippet template({ children, ...args })}
+		<Button {...args}>Medium</Button>
+	{/snippet}
 </Story>

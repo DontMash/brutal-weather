@@ -1,5 +1,5 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import type { Location } from '$lib/weather/geocoding';
 	import FavoriteButton from '$lib/components/weather/FavoriteButton.svelte';
@@ -12,14 +12,22 @@
 		latitude: 1,
 		longitude: -1
 	};
+	const { Story } = defineMeta({
+		title: 'Components/Buttons/FavoriteButton',
+		component: FavoriteButton,
+		argTypes: {
+			location: {
+				control: 'object',
+				name: 'Location',
+				description: 'An object defining the location to be favoritted.',
+				defaultValue: location
+			}
+		}
+	});
 </script>
 
-<Meta title="Components/Buttons/FavoriteButton" component={FavoriteButton} />
-
-<Template>
-	<FavoriteButton {location} />
-</Template>
-
 <Story name="Default">
-	<FavoriteButton {location} />
+	{#snippet template(args)}
+		<FavoriteButton {...args} />
+	{/snippet}
 </Story>

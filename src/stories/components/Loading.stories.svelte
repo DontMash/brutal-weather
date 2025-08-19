@@ -1,14 +1,13 @@
-<script lang="ts">
-	import { Meta, Story, Template } from '@storybook/addon-svelte-csf';
+<script module lang="ts">
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
 	import Loading from '$lib/components/Loading.svelte';
+
+	const { Story } = defineMeta({
+		title: 'Components/Loading',
+		component: Loading
+	});
 </script>
-
-<Meta title="Components/Loading" component={Loading} />
-
-<Template>
-	<Loading />
-</Template>
 
 <Story name="Default">
 	<Loading />

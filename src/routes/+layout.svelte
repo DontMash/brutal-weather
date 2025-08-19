@@ -5,10 +5,16 @@
 	import Toaster from '$lib/components/toast/Toaster.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 
-	import { page, navigating } from '$app/stores';
+	import { page, navigating } from '$app/state';
 	import '../app.css';
 
-	$: isHome = $page.url.pathname === '/';
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
+
+	let isHome = $derived(page.url.pathname === '/');
 </script>
 
 <svelte:head>
@@ -31,18 +37,18 @@
 		<div class="max-w-5xl overflow-hidden rounded-[inherit] border-2 border-neutral-800">
 			<header
 				class="border-b-2 border-neutral-800 data-[index=true]:border-0"
-				data-index={isHome && !$navigating}
+				data-index={isHome && !navigating.to}
 			>
 				<Navigation />
 			</header>
 
 			<main class="flex max-h-[24.5rem] w-full flex-col overflow-y-auto overflow-x-hidden">
-				{#if $navigating}
+				{#if navigating.to}
 					<div class="mx-auto p-4">
 						<Loading color="dark" />
 					</div>
 				{:else}
-					<slot />
+					{@render children?.()}
 				{/if}
 			</main>
 		</div>

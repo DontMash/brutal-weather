@@ -1,6 +1,4 @@
-<script lang="ts">
-	import { Meta, Story } from '@storybook/addon-svelte-csf';
-
+<script module lang="ts">
 	import ArrowUpAltIcon from '$lib/components/icons/ArrowUpAltIcon.svelte';
 	import CloseIcon from '$lib/components/icons/CloseIcon.svelte';
 	import CloudFilledIcon from '$lib/components/icons/CloudFilledIcon.svelte';
@@ -26,9 +24,12 @@
 	import SnowShowerWeatherIcon from '$lib/components/icons/weather/SnowShowerWeatherIcon.svelte';
 	import ThunderstormHailWeatherIcon from '$lib/components/icons/weather/ThunderstormHailWeatherIcon.svelte';
 	import ThunderstormWeatherIcon from '$lib/components/icons/weather/ThunderstormWeatherIcon.svelte';
-</script>
+	import { defineMeta } from '@storybook/addon-svelte-csf';
 
-<Meta title="Components/Icons" />
+	const { Story } = defineMeta({
+		title: 'Components/Icons'
+	});
+</script>
 
 <Story name="Basic">
 	<ul class="flex space-x-4">
@@ -84,7 +85,9 @@
 </Story>
 
 <Story name="Weather">
-	<ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 rounded-2xl bg-neutral-800 p-4 text-slate-100">
+	<ul
+		class="grid grid-cols-2 rounded-2xl bg-neutral-800 p-4 text-slate-100 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+	>
 		<li class="flex flex-col items-center">
 			<ClearWeatherIcon />
 			<em class="block text-center text-xs not-italic">Clear (Day)</em>

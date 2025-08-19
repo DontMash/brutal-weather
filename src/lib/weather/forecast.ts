@@ -56,7 +56,7 @@ export enum Daytime {
  * WMO code
  */
 export type WeatherCode =
-	0
+	| 0
 	| 1
 	| 2
 	| 3

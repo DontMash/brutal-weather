@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let color: Color = 'dark';
+	interface Props {
+		color?: Color;
+	}
+
+	let { color = 'dark' }: Props = $props();
 
 	type Color = 'light' | 'dark';
 	const colorVariants: Record<Color, string> = {
@@ -8,6 +12,8 @@
 	};
 </script>
 
-<figure
+<div
 	class={`inline-block after:inline-block after:h-6 after:w-6 after:animate-spin after:rounded-full after:border-2 after:border-transparent ${colorVariants[color]}`}
-/>
+>
+	<span class="sr-only">Loading...</span>
+</div>

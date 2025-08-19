@@ -4,9 +4,11 @@
 
 	import type { Location } from '$lib/weather/geocoding';
 
-	export let location: Location;
+	interface Props {
+		location: Location;
+	}
 
-	$: forecastURL = getForecastURL(location);
+	let { location }: Props = $props();
 
 	const getForecastURL = (location: Location): string => {
 		const forecastParams = new URLSearchParams({
@@ -16,6 +18,7 @@
 
 		return `/forecast/current?${forecastParams.toString()}`;
 	};
+	let forecastURL = $derived(getForecastURL(location));
 </script>
 
 <a

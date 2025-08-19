@@ -3,7 +3,11 @@
 
 	import { Daytime, type Forecast } from '$lib/weather/forecast';
 
-	export let forecast: Forecast;
+	interface Props {
+		forecast: Forecast;
+	}
+
+	let { forecast }: Props = $props();
 </script>
 
 {#if forecast.hourly}
@@ -14,10 +18,13 @@
 			<li class="flex flex-col">
 				{#if hourly.weathercode}
 					<div class="flex flex-col items-center justify-center p-2">
-						<WeatherStatus code={hourly.weathercode[index]} daytime={hourly.is_day ? hourly.is_day[index] : Daytime.Day} />
+						<WeatherStatus
+							code={hourly.weathercode[index]}
+							daytime={hourly.is_day ? hourly.is_day[index] : Daytime.Day}
+						/>
 					</div>
 				{/if}
-				
+
 				{hourly.temperature_2m[index]}
 
 				{#if hourly.apparent_temperature}
